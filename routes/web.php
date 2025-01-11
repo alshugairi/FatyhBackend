@@ -26,9 +26,7 @@ Route::group([
 {
     Auth::routes();
 
-    Route::get(uri: '/', action: function (){
-        return 4444444;
-    })->name(name: 'home');
+
     Route::get(uri: 'page/{slug}', action: [PageController::class, 'page'])->name(name: 'page');
     Route::get(uri: 'contact', action: [PageController::class, 'contact'])->name(name: 'contact');
     Route::post(uri: 'contact', action: [PageController::class, 'sendContact'])->name(name: 'contact.send');
@@ -87,6 +85,13 @@ Route::get('reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
 Route::get(uri: 'switch-language/{locale}', action: LanguageSwitcherController::class)->name(name: 'language.switch');
 
 
-Route::get(uri: '/hello', action: function (){
-    return 'Hello World!';
+Route::prefix('backend')->group(function () {
+
+    Route::get(uri: '/', action: function (){
+        return 4444444;
+    })->name(name: 'home');
+
+    Route::get(uri: '/hello', action: function (){
+        return 'Hello World!';
+    });
 });
