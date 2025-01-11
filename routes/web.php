@@ -85,18 +85,16 @@ Route::get('reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
 Route::get(uri: 'switch-language/{locale}', action: LanguageSwitcherController::class)->name(name: 'language.switch');
 
 
-Route::prefix('backend')->group(function () {
+Route::group([], function () {
+    Route::get('/', function () {
+        return 444444;
+    })->name('home');
 
-
-Route::get(uri: '/', action: function (){
-    return 4444444;
-})->name(name: 'home');
-
-    Route::get(uri: '/hello', action: function (){
+    Route::get('/hello', function () {
         return 'Hello World!';
     });
 
-    Route::get(uri: '/hello2', action: function (){
+    Route::get('/hello2', function () {
         return 'Hello World2!';
     });
 });
