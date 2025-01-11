@@ -86,3 +86,7 @@ Route::get('captcha', [CaptchaController::class, 'getCaptcha']);
 Route::get('reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
 Route::get(uri: 'switch-language/{locale}', action: LanguageSwitcherController::class)->name(name: 'language.switch');
 
+
+Route::get(uri: '/hello', action: function (){
+    return 'Hello World!';
+});
