@@ -92,7 +92,11 @@ Route::get(uri: '/', action: function (){
     return 4444444;
 })->name(name: 'home');
 
-Route::get(uri: '/hello', action: function (){
-    return 'Hello World!';
-});
+    Route::get(uri: '/hello', action: function (){
+        return 'Hello World!';
+    });
+
+    Route::get(uri: '/hello2', action: function (){
+        return 'Hello World2!';
+    });
 });
