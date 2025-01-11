@@ -75,7 +75,7 @@
 <div class="header-container">
     <div class="main-header">
         <div class="header-left">
-            <div class="company-name">{{ get_setting('company_name', 'Shopifyze') }}</div>
+            <div class="company-name">{{ get_setting('company_name', 'Fatyh') }}</div>
             <div class="report-title">{{ __('admin.products_report') }}</div>
         </div>
         <div class="header-right">
@@ -116,7 +116,7 @@
 </table>
 
 <div style="text-align: center; font-size: 10px; margin-top: 20px; color: #666;">
-    {{ get_setting('company_name', 'Shopifyze') }} © {{ date('Y') }} - {{ __('admin.products_report') }}
+    {{ get_setting('company_name', 'Fatyh') }} © {{ date('Y') }} - {{ __('admin.products_report') }}
 </div>
 </body>
 </html>

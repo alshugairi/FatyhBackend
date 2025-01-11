@@ -44,7 +44,7 @@
 
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="{{ asset('assets/admin') }}/images/avatar.png" class="user-image rounded-circle shadow" alt="User Image">
+                    <img src="{{ asset('public/assets/admin') }}/images/avatar.png" class="user-image rounded-circle shadow" alt="User Image">
                     <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end w-auto">

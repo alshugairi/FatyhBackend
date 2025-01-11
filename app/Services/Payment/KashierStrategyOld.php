@@ -31,7 +31,7 @@ class KashierStrategyOld implements PaymentStrategyInterface
                 'customer_email' => $order->customer_email,
                 'customer_name' => $order->customer_name,
                 'allowedMethods' => $config['allowed_methods'] ?? ['card'],
-                'source' => 'Shopifyze ' . app()->version() . ' - Kashier API'
+                'source' => 'Fatyh ' . app()->version() . ' - Kashier API'
             ];
 
             $hash = hash_hmac('sha256',

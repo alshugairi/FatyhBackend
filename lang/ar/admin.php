@@ -157,7 +157,7 @@ return array (
     'sales' => 'المبيعات',
     'client' => 'العميل',
     'signin' => 'تسجيل الدخول',
-    'login_welcome_msg' => 'مرحباً بك في Shopifyze',
+    'login_welcome_msg' => 'مرحباً بك في Fatyh',
     'login_description' => 'أدخل بيانات الاعتماد الخاصة بك للوصول إلى لوحة الإدارة.',
     'theme' => 'السمة',
     'favicon' => 'الأيقونة المفضلة',

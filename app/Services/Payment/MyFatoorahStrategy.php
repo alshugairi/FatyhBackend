@@ -29,7 +29,7 @@ class MyFatoorahStrategy implements PaymentStrategyInterface
                 'CustomerMobile'     => '',
                 'Language'           => app()->getLocale(),
                 'CustomerReference'  => $order->id,
-                'SourceInfo'         => 'Shopifyze ' . app()->version() . ' - MyFatoorah API'
+                'SourceInfo'         => 'Fatyh ' . app()->version() . ' - MyFatoorah API'
             ];
 
             $myFatoorah = new MyFatoorahPayment($mfConfig);

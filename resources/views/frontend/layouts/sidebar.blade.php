@@ -1,7 +1,7 @@
 <aside class="app-sidebar shadow1" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a class='brand-link' href="{{ route('admin.dashboard') }}">
-            <img src="{{ get_setting('theme_light_logo', asset('assets/admin/images/logo-icon.png')) }}" alt="Shopifyze Logo" class="brand-image">
+            <img src="{{ get_setting('theme_light_logo', asset('assets/admin/images/logo-icon.png')) }}" alt="Fatyh Logo" class="brand-image">
         </a>
     </div>
     <div class="sidebar-wrapper">

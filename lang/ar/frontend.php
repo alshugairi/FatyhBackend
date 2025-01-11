@@ -129,7 +129,7 @@ return [
     'product_details' => 'تفاصيل المنتج',
     'get_from_google_play' => 'الحصول عليه من Google Play',
     'get_from_app_store' => 'الحصول عليه من App Store',
-    'copyrights' => 'جميع الحقوق محفوظة @ Shopifyze',
+    'copyrights' => 'جميع الحقوق محفوظة @ Fatyh',
     'contact_information' => 'معلومات الاتصال',
     'message' => 'الرسالة',
     'send_message' => 'إرسال الرسالة',

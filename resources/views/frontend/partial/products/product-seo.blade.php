@@ -1,4 +1,4 @@
-@section('title'){{ !blank($product->meta_title) ? $product->meta_title : $product->name }} - {{ get_setting('company_name', 'Shopifyze') }}@endsection
+@section('title'){{ !blank($product->meta_title) ? $product->meta_title : $product->name }} - {{ get_setting('company_name', 'Fatyh') }}@endsection
 
 @section('meta')
     <meta name="description" content="{{ !blank($product->meta_description) ? $product->meta_description : str_limit(strip_tags($product->description), 160) }}">
@@ -42,7 +42,7 @@
             "sku": "{{ $product->sku }}",
             "brand": {
                 "@type": "Brand",
-                "name": "{{ $product->brand ? $product->brand->name : get_setting('company_name', 'Shopifyze') }}"
+                "name": "{{ $product->brand ? $product->brand->name : get_setting('company_name', 'Fatyh') }}"
             },
             "offers": {
                 "@type": "Offer",

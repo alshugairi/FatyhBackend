@@ -28,6 +28,7 @@ class Product extends Model
     ];
 
     protected $fillable = [
+        'business_id',
         'name',
         'sku',
         'slug',
@@ -55,6 +56,7 @@ class Product extends Model
     ];
 
     protected $casts = [
+        'business_id' => 'integer',
         'name' => 'array',
         'sku' => 'string',
         'slug' => 'string',

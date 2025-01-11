@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('meta')
-    <title>@yield('title', get_setting('company_name', 'Shopifyze'))</title>
+    <title>@yield('title', get_setting('company_name', 'Fatyh'))</title>
     <link rel="icon" type="image/png" href="{{ get_setting('theme_favicon') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,7 +83,7 @@
         <div class="d-flex align-items-center justify-content-between h-100">
             <div class="logo-wrap">
                 <a href="{{ route('home') }}">
-                    <img src="{{ get_setting('theme_logo') }}" alt="Shopifyze" class="logo">
+                    <img src="{{ get_setting('theme_logo') }}" alt="Fatyh" class="logo">
                 </a>
             </div>
 

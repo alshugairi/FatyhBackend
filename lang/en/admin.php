@@ -158,7 +158,7 @@ return [
     'sales' => 'Sales',
     'client' => 'Client',
     'signin' => 'Signin',
-    'login_welcome_msg' => 'Welcome to Shopifyze',
+    'login_welcome_msg' => 'Welcome to Fatyh',
     'login_description' => 'Enter your credentials to access the admin panel.',
     'theme' => 'Theme',
     'favicon' => 'Favicon',

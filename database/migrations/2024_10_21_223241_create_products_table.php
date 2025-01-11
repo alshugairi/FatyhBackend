@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('business_id')->index()->constrained()->cascadeOnDelete();
             $table->json('name');
             $table->string('sku')->unique()->index();
             $table->string('slug')->unique()->nullable()->index();
@@ -30,7 +31,6 @@ return new class extends Migration
             $table->unsignedInteger('stock_quantity')->nullable();
             $table->boolean('has_variants')->default(false)->index();
 
-            $table->foreignId('category_id')->nullable()->index()->constrained('categories')->onDelete('set null');
             $table->foreignId('brand_id')->nullable()->index()->constrained('brands')->onDelete('set null');
             $table->foreignId('parent_product_id')->nullable()->constrained('products')->onDelete('cascade');
 

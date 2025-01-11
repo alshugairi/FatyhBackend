@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('business_id')->nullable()->index()->constrained('businesses')->nullOnDelete();
             $table->string('name');
             $table->integer('type')->default(UserType::CLIENT->value)->index();
             $table->string('country_code')->nullable();

@@ -40,7 +40,7 @@ class RazorpayStrategy implements PaymentStrategyInterface
                 'reminder_enable' => true,
                 'notes'          => [
                     'order_id' => $order->id,
-                    'source'   => 'Shopifyze ' . app()->version() . ' - Razorpay API'
+                    'source'   => 'Fatyh ' . app()->version() . ' - Razorpay API'
                 ],
                 'callback_url'   => route('payment.razorpay.callback', ['order' => $order->id]),
                 'callback_method' => 'get'

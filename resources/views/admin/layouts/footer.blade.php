@@ -1,19 +1,19 @@
 <footer class="app-footer"> <!--begin::To the end-->
     <div class="float-end d-none d-sm-inline"></div>
     <strong>
-        <a href="#" class="text-decoration-none">Shopifyze</a>
+        <a href="#" class="text-decoration-none">Fatyh</a>
     </strong>
     <!--end::Copyright-->
 </footer> <!--end::Footer-->
 </div>
 
-<script src="{{ asset('assets/admin') }}/js/jquery-3.7.0.min.js"></script>
-<script src="{{ asset('assets/admin') }}/js/overlayscrollbars.browser.es6.min.js"></script>
-<script src="{{ asset('assets/admin') }}/js/popper.min.js"></script>
-<script src="{{ asset('assets/admin') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('assets/admin') }}/js/adminlte.js"></script>
-<script src="{{ asset('assets/admin') }}/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('assets/admin') }}/js/dataTables.bootstrap5.min.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/jquery-3.7.0.min.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/overlayscrollbars.browser.es6.min.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/popper.min.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/adminlte.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

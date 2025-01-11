@@ -129,7 +129,7 @@ return [
     'product_details' => 'Product details',
     'get_from_google_play' => 'Get it on Google Play',
     'get_from_app_store' => 'Get it on App Store',
-    'copyrights' => 'All Right Reserved @ Shopifyze',
+    'copyrights' => 'All Right Reserved @ Fatyh',
     'contact_information' => 'Contact Information',
     'message' => 'Message',
     'send_message' => 'Send Message',

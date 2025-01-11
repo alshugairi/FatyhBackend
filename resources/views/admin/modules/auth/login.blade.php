@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
-    <link rel="stylesheet" href="{{ asset('assets/admin') }}/css/overlayscrollbars.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/admin') }}/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/overlayscrollbars.min.css">
+    <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/bootstrap-icons.min.css">
     @if(app()->getLocale() === 'ar')
-        <link rel="stylesheet" href="{{ asset('assets/admin') }}/css/adminlte.rtl.css">
-        <link rel="stylesheet" href="{{ asset('assets/admin') }}/css/rtl.css">
+        <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/adminlte.rtl.css">
+        <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/rtl.css">
     @else
-        <link rel="stylesheet" href="{{ asset('assets/admin') }}/css/adminlte.css">
+        <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/adminlte.css">
     @endif
-    <link rel="stylesheet" href="{{ asset('assets/admin') }}/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/custom.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <div class="row min-vh-100 p-0 m-0">
             <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center text-white" style="background:#1F2D3A;">
                 <div class="text-center">
-                    <img src="{{ asset('assets/admin') }}/images/logo.png" alt="Logo" class="img-fluid mb-4 logo">
+                    <img src="{{ asset('public/assets/admin') }}/images/logo.png" alt="Logo" class="img-fluid mb-4 logo">
                     <h1>{{ __('admin.login_welcome_msg') }}</h1>
                     <p>{{ __('admin.login_description') }}</p>
                 </div>
@@ -90,10 +90,10 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets/admin') }}/js/overlayscrollbars.browser.es6.min.js"></script>
-    <script src="{{ asset('assets/admin') }}/js/popper.min.js"></script>
-    <script src="{{ asset('assets/admin') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('assets/admin') }}/js/adminlte.js"></script>
+    <script src="{{ asset('public/assets/admin') }}/js/overlayscrollbars.browser.es6.min.js"></script>
+    <script src="{{ asset('public/assets/admin') }}/js/popper.min.js"></script>
+    <script src="{{ asset('public/assets/admin') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('public/assets/admin') }}/js/adminlte.js"></script>
     <script>
         function switchLanguage(select) {
             const selectedOption = select.options[select.selectedIndex];
