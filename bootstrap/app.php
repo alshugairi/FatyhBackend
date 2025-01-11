@@ -3,11 +3,17 @@
 use Illuminate\{Foundation\Application,
     Foundation\Configuration\Exceptions,
     Foundation\Configuration\Middleware,
+    Auth\AuthenticationException,
+    Database\Eloquent\ModelNotFoundException,
+    Validation\ValidationException,
     Support\Facades\Route};
 use App\Http\Middleware\Localization;
 use App\Http\Middleware\EnsureIsAdmin;
 use App\Http\Middleware\EnsureSessionId;
 use App\Http\Middleware\ApiKeyMiddleware;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -57,5 +63,50 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        if (Request::is('api/*')) {
+            $exceptions->renderable(function (NotFoundHttpException $e) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => $e->getMessage()
+                ], 404);
+            });
+            $exceptions->renderable(function (ModelNotFoundException $e) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Invalid Data Or Not Found (isModelNotFoundException)'
+                ], 404);
+            });
+            $exceptions->renderable(function (ValidationException $e) {
+                $errors = $e->errors();
+                return response()->json([
+                    'status' => 422,
+                    'message' => $e->getMessage(),
+                    'errors' => $errors
+                ], 422);
+            });
+            $exceptions->renderable(function (AuthenticationException $e) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => $e->getMessage()
+                ], 401);
+            });
+            $exceptions->renderable(function (MethodNotAllowedHttpException $e) {
+                return response()->json([
+                    'status' => 405,
+                    'message' => $e->getMessage()
+                ], 405);
+            });
+            $exceptions->renderable(function (BadRequestException $e) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => $e->getMessage()
+                ], 400);
+            });
+            $exceptions->renderable(function (Exception $e) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => $e->getMessage()
+                ], 400);
+            });
+        }
     })->create();
