@@ -13,7 +13,7 @@ use App\{Http\Controllers\Admin\AuthController,
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'backend/admin', 'as' => 'admin.'], function () {
 
     Route::get(uri: 'login', action: [AuthController::class, 'login'])->name('login');
     Route::post(uri: 'login', action: [AuthController::class, 'authenticate'])->name('authenticate');
