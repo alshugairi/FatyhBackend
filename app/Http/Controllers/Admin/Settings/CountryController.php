@@ -33,7 +33,7 @@ class CountryController extends Controller
      */
     public function create(): View
     {
-        $currencies = Currency::getAll();
+        $currencies = Currency::allCurrencies();
         return view('admin.modules.settings.countries.create', get_defined_vars());
     }
 
@@ -54,7 +54,7 @@ class CountryController extends Controller
      */
     public function edit(Country $country): View
     {
-        $currencies = Currency::getAll();
+        $currencies = Currency::allCurrencies();
         return view('admin.modules.settings.countries.edit', get_defined_vars());
     }
 

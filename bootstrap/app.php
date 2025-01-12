@@ -63,7 +63,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        if (Request::is('api/*')) {
+        if (request()->is('api/*')) {
             $exceptions->renderable(function (NotFoundHttpException $e) {
                 return response()->json([
                     'status' => 404,

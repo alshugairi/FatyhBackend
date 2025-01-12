@@ -80,19 +80,13 @@ class AuthenticationController extends Controller
     public function register(RegisterRequest $request): Response
     {
         try {
-            $user = User::where('phone', $request->phone)->where('verified', false)->first();
+            $data = upload_file($request->validated(), 'avatar', 'users');
+            $user = $this->userService->create(data: $data);
+            $code = app()->isProduction() ? $this->verificationService->generateCode() : 123456;
 
-            if ($user) {
-                $user = $this->userService->update(data: $request->validated(), id: $user->id);
-            } else {
-                $user = $this->userService->create(data: $request->validated());
-            }
+            //$this->verificationService->storeCode(user: $user, code: $code);
 
-            $code = app()->isProduction() ? $this->verificationService->generateCode() : 1234;
-
-            $this->verificationService->storeCode(user: $user, code: $code);
-
-            $this->sendOtp($user, $code);
+            //$this->sendOtp($user, $code);
 
             return Response::response(
                 message: __(key:'share.registered_successfully'),
@@ -102,9 +96,8 @@ class AuthenticationController extends Controller
                 ]
             );
         } catch (\Exception $e) {
-            return Response::response(
-                message: __('share.registration_failed'),
-                errors: [$e->getMessage()],
+            return Response::error(
+                message: $e->getMessage(),
                 status: HttpStatus::HTTP_BAD_REQUEST
             );
         }

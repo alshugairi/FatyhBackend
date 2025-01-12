@@ -1,0 +1,20 @@
+<?php
+
+return [
+    'logged_successfully' => 'Logged Successfully',
+    'request_successfully' => 'Request Successfully',
+    'logout_successfully' => 'Logout Successfully',
+    'unauthenticated' => 'Unauthenticated',
+    'registered_successfully' => 'Registered Successfully',
+    'account_deleted_successfully' => 'Account Deleted Successfully',
+    'account_deleted' => 'This account has been deleted, so contact your administrator.',
+    'account_not_verified' => 'Please verify your account to continue.',
+    'code_not_available' => 'Code Not Available',
+    'user_not_found' => 'User not found',
+    'success_send_otp' => 'OTP sent successfully',
+    'success_verify_account' => 'Account verified successfully',
+    'success_change_password' => 'Password successfully changed',
+    'updated_successfully' => 'Updated Successfully',
+    'registration_failed' => 'Registration failed',
+    'error' => 'Error',
+];

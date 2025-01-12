@@ -20,16 +20,13 @@ class UserResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'username' => $this->username,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'gender' => $this->gender,
+            'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
             'verified' => $this->verified,
-            'fcm_token' => $this->fcm_token,
             'created_at' => $this->created_at,
             'avatar' => !is_null($this->avatar) ? get_full_image_url($this->avatar) : null,
+            //'fcm_token' => $this->fcm_token,
         ];
     }
 }

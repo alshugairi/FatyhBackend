@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Authentication;
 
+use App\Enums\UserType;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\{Foundation\Http\FormRequest};
@@ -25,39 +26,34 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = User::where('phone', $this->phone)->where('verified', false)->first();
-
         return [
-            'email' => [
-                'nullable',
-                'email',
-                Rule::unique('users', 'email')->ignore($user?->id),
-            ],
+            'account_type' => ['required','string','in:individual,company'],
+            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'nickname' => ['required', 'string', 'max:255'],
+            'email' => ['required','email', Rule::unique('users', 'email')],
             'phone' => [
                 'required',
                 'numeric',
-                Rule::unique('users', 'phone')->ignore($user?->id),
+                Rule::unique('users', 'phone'),
                 'regex:/^\+[0-9]+$/',
             ],
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                //'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$/'
-            ],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'country_id' => ['required', 'exists:countries,id'],
+            'city_id' => ['required', 'exists:cities,id'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'], // Max size is 1MB
             'fcm_token' => ['nullable'],
-            'first_name' => ['required', 'string'],
             'status' => ['required', 'integer'],
+            'type' => ['required', 'integer'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'username.unique' => __('validation.unique_phone_or_username'),
-            'username.regex' => __('validation.username_regex'),
-            'phone.regex' => __('validation.phone_regex'),
+            'phone.regex' => __('validation.phone_invalid'),
             'password.regex' => __('validation.password_complex'),
         ];
     }
@@ -68,8 +64,9 @@ class RegisterRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
+            'type' => $this->account_type === 'individual' ? UserType::CLIENT->value : UserType::BUSINESS_OWNER->value,
             'status' => $this->status ?? 1,
-            'first_name' => $this->username
+            'name' => $this->first_name. ' ' .(!empty($this->middle_name) ? $this->middle_name . ' ' : '').$this->last_name
         ]);
     }
 }
