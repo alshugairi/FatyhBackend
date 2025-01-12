@@ -41,14 +41,7 @@ class AuthenticationController extends Controller
         try {
             $credentials = $request->only(['phone', 'password']);
 
-            if (!Auth::attempt($credentials, $request->boolean('remember_me'))) {
-                /*
-                    Log::warning('Failed login attempt', [
-                        'phone' => $request->phone,
-                        'ip' => $request->ip()
-                    ]);
-                */
-
+            if (!Auth::attempt($credentials)) {
                 return Response::error(
                     message: __('auth.failed'),
                     status: HttpStatus::HTTP_UNAUTHORIZED
@@ -57,7 +50,7 @@ class AuthenticationController extends Controller
 
             $user = Auth::user();
 
-            if ($user->status === 'deleted') {
+            if ($user->status === StatusEnum::DELETED->value) {
                 return Response::error(
                     message: __('auth.account_deleted'),
                     status: HttpStatus::HTTP_FORBIDDEN

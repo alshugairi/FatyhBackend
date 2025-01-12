@@ -196,4 +196,11 @@ return [
     'attribute_option_required' => 'Please select an option for each attribute.',
     'attribute_option_not_exists' => 'One or more selected options are invalid.',
     'product_already_in_collection' => 'This product is already added to the collection.',
+    'no_email_or_phone' => 'The :attribute must not contain an email address or phone number.',
+    'email_or_phone' => 'The :attribute must be a valid email or phone number.',
+    'phone_invalid' => 'The phone number must be a valid format (e.g., +123456789).',
+    'password_complex' => 'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.',
+    'username_regex' => 'Username can only contain letters and numbers',
+    'unique_phone_or_username' => 'This email/phone number already in use , please login',
+    'letters_only' => 'The :attribute field must contain letters only.',
 ];

@@ -5,5 +5,6 @@ namespace App\Enums;
 enum UserType:int
 {
     case ADMIN = 1;
-    case CLIENT = 2;
+    case VENDOR = 2;
+    case CLIENT = 3;
 }

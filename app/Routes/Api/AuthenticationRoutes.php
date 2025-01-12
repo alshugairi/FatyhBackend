@@ -19,10 +19,6 @@ class AuthenticationRoutes implements RoutesInterface
         Route::group(attributes: [], routes: static function () {
             Route::post(uri: 'login', action: [AuthenticationController::class, 'login'])->middleware('throttle:5,1');
             Route::post(uri: 'social/login', action: [AuthenticationController::class, 'socialLogin'])->middleware('throttle:5,1');
-//            Route::prefix('social')->group(function () {
-//                Route::get('{provider}', [AuthenticationController::class, 'redirectToProvider']);
-//                Route::get('{provider}/callback', [AuthenticationController::class, 'handleProviderCallback']);
-//            });
 
             Route::post(uri: 'register', action: [AuthenticationController::class, 'register']);
             Route::post(uri: 'social/register', action: [AuthenticationController::class, 'socialRegister']);
@@ -30,9 +26,7 @@ class AuthenticationRoutes implements RoutesInterface
             Route::post(uri: 'check-username', action: [AuthenticationController::class, 'checkUsername']);
         });
 
-        Route::group(attributes: ['middleware' => [
-            'auth:sanctum',
-        ]], routes: static function () {
+        Route::group(attributes: ['middleware' => [ 'auth:sanctum']], routes: static function () {
 
             Route::post(uri: 'verify', action: [VerificationController::class, 'verify']);
             Route::post(uri: 'resend-OTP', action: [VerificationController::class, 'resendOTP'])->middleware('throttle:5,1');
