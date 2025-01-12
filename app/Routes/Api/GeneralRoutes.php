@@ -17,7 +17,8 @@ class GeneralRoutes implements RoutesInterface
         Route::group(attributes: [], routes: static function () {
             Route::get(uri: 'pages/terms', action: [SettingsController::class, 'terms']);
             Route::get(uri: 'pages/privacy', action: [SettingsController::class, 'privacy']);
-            Route::get(uri: 'categories', action: [GeneralController::class, 'categories']);
+            Route::get(uri: 'countries', action: [GeneralController::class, 'countries']);
+            Route::get(uri: 'cities', action: [GeneralController::class, 'cities']);
         });
     }
 }
