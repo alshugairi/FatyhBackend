@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->integer('country_id')->nullable()->index();
             $table->integer('city_id')->nullable()->index();
-            $table->integer('status')->default(\App\Enums\StatusEnum::)->index();
+            $table->integer('status')->default(UserType::CLIENT->value)->index();
             $table->string('email')->unique()->nullable()->index();
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('wallet', 10, 2)->nullable();
