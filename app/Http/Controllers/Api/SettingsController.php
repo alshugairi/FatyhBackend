@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\{Http\Controllers\Controller,
-    Http\Resources\PageResource,
-    Http\Resources\UserResource,
+    Http\Resources\General\PageResource,
     Services\Settings\PageService,
-    Services\Settings\SettingsService,
     Utils\HttpFoundation\Response};
 
 class SettingsController extends Controller

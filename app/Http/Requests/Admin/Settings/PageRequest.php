@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Settings;
 
-use Illuminate\{Foundation\Http\FormRequest};
+use Illuminate\{Foundation\Http\FormRequest, Validation\Rule};
 
 class PageRequest extends FormRequest
 {
@@ -26,7 +26,15 @@ class PageRequest extends FormRequest
         $rules['name'] = ['required', 'array'];
         $rules['name.*'] = ['required', 'string', 'max:255'];
         $rules['content'] = ['nullable', 'array'];
-        $rules['content.*'] = ['nullable', 'string', 'max:255'];
+        $rules['content.*'] = ['nullable', 'string', 'max:1000'];
+
+        $rules['slug'] = [
+            'required',
+            'string',
+            'max:255',
+            'regex:/^[\p{Arabic}a-z0-9-]+$/u',
+            Rule::unique('posts', 'slug')->ignore($this->page)
+        ];
         return $rules;
     }
 }

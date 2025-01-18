@@ -17,4 +17,5 @@ return [
     'updated_successfully' => 'Updated Successfully',
     'registration_failed' => 'Registration failed',
     'error' => 'Error',
+    'msg_sent_successfully' => 'Message has been sent.',
 ];

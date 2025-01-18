@@ -33,7 +33,7 @@
                             <tr>
                                 <th></th>
                                 <th>{{ __('admin.name') }}</th>
-                                <th>{{ __('admin.phone') }}</th>
+{{--                                <th>{{ __('admin.phone') }}</th>--}}
                                 <th>{{ __('admin.email') }}</th>
                                 <th>{{ __('admin.message') }}</th>
                                 <th>{{ __('admin.created_at') }}</th>
@@ -83,7 +83,7 @@
                 columns: [
                     { data: 'id', name: 'id', visible: false },
                     { data: 'name', name: 'name' },
-                    { data: 'phone', name: 'phone' },
+                    // { data: 'phone', name: 'phone' },
                     { data: 'email', name: 'email' },
                     {
                         data: 'message',

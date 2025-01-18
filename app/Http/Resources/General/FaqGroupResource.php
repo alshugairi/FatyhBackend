@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\General;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PageResource extends JsonResource
+class FaqGroupResource extends JsonResource
 {
     public function __construct($resource)
     {
@@ -20,7 +20,8 @@ class PageResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'content' => $this->content,
+            'name' => $this->name,
+            'faqs' => FaqResource::collection($this->whenLoaded('faqs')),
         ];
     }
 }

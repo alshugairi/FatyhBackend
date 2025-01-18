@@ -10,9 +10,23 @@
                     @include('admin.partial.settings.sidebar')
                 </div>
                 <div class="col-lg-9 col-md-6 col-sm-12">
+                    <div class="list-items-horizontal mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{{ route('admin.faqs.index') }}" class="list-item d-block active text-center">
+                                    {{ __('admin.faqs') }}
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('admin.faq_groups.index') }}" class="list-item d-block text-center">
+                                    {{ __('admin.faq_groups') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('admin.pages') }}</h3>
+                            <h3 class="card-title">{{ __('admin.faqs') }}</h3>
                             <div class="card-tools">
                                 <x-datatable.export/>
                                 <x-datatable.filter>
@@ -25,7 +39,7 @@
                                     </x-slot>
                                 </x-datatable.filter>
                                 @can('admins.create')
-                                    <x-datatable.create href="{{ route('admin.pages.create') }}" module="{{ __('admin.page') }}"/>
+                                    <x-datatable.create href="{{ route('admin.faqs.create') }}" module="{{ __('admin.faq') }}"/>
                                 @endcan
                             </div>
                         </div>
@@ -35,10 +49,11 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th>{{ __('admin.name') }}</th>
-                                        <th>{{ __('admin.url') }}</th>
+                                        <th>{{ __('admin.question') }}</th>
+                                        <th>{{ __('admin.faq_group') }}</th>
+                                        <th>{{ __('admin.active') }}</th>
                                         <th>{{ __('admin.created_at') }}</th>
-                                        @canany(['pages.edit','pages.delete'])
+                                        @canany(['faqs.edit','faqs.delete'])
                                             <th>{{ __('admin.actions') }}</th>
                                         @endcanany
                                     </tr>
@@ -63,28 +78,30 @@
                 pageLength: 100,
                 order: [[ 0, "desc" ]],
                 ajax: {
-                    url: '{!! route('admin.pages.list') !!}',
+                    url: '{!! route('admin.faqs.list') !!}',
                     data: function (d) {
-                        d.type = "{{ request('type') }}";
+                        //d.type = ";
                     }
                 },
                 columns: [
                     { data: 'id', name: 'id',visible: false},
-                    { data: 'name', name: 'name' },
+                    { data: 'question', name: 'question' },
+                    { data: 'group', name: 'faq_group_id' },
+                    { data: 'is_active', name: 'is_active' },
                     { data: 'formatted_created_at', name: 'created_at' },
-                    @canany(['pages.edit','pages.delete'])
+                    @canany(['faqs.edit','faqs.delete'])
                     {data: 'actions',name: 'actions',orderable: false,searchable: false},
                     @endcanany
                 ],
                 columnDefs: [
-                        @canany(['pages.edit','pages.delete'])
+                        @canany(['faqs.edit','faqs.delete'])
                     {
                         "targets": -1,
                         "render": function (data, type, row) {
-                            var editUrl = '{{ route("admin.pages.edit", ":id") }}';
+                            var editUrl = '{{ route("admin.faqs.edit", ":id") }}';
                             editUrl = editUrl.replace(':id', row.id);
 
-                            var deleteUrl = '{{ route("admin.pages.destroy", ":id") }}';
+                            var deleteUrl = '{{ route("admin.faqs.destroy", ":id") }}';
                             deleteUrl = deleteUrl.replace(':id', row.id);
 
                             return `<div class='btn-actions'>

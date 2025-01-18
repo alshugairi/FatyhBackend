@@ -10,7 +10,7 @@
                     @include('admin.partial.settings.sidebar')
                 </div>
                 <div class="col-lg-9 col-md-6 col-sm-12">
-                    <form action="{{ route('admin.pages.store') }}" method="post" id="submitForm">
+                    <form class="validate-form" action="{{ route('admin.pages.store') }}" method="post" id="submitForm">
                         @method('post')
                         @csrf
                         <div class="card">
@@ -30,15 +30,32 @@
                                                               key="id-name-{{ $appLanguage->code }}"
                                                               value="{!! old('name.'.$appLanguage->code) !!}"
                                                               label="true" labelName="{{ __('admin.name') }}"/>
-                                                <x-form.textarea name="content[{{ $appLanguage->code }}]" required="true"
-                                                                 key="id-content-{{ $appLanguage->code }}"
-                                                                 classes="editor"
-                                                                 value="{!! old('content.'.$appLanguage->code) !!}"
-                                                                 label="true" labelName="{{ __('admin.content') }}"/>
+                                                <div class="col-12 mb-3">
+                                                    <label class="form-label">{{ __('admin.content') }}</label>
+                                                    <textarea class="form-control quill-editor"
+                                                              id="content_{{ $appLanguage->code }}"
+                                                              name="content[{{ $appLanguage->code }}]"
+                                                              style="display: none;">{{ old('content.'.$appLanguage->code) }}</textarea>
+                                                    <div id="editor_content_{{ $appLanguage->code }}"
+                                                         class="quill-container">{!! old('content.'.$appLanguage->code) !!}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
                                 </x-layouts.language-tabs>
+                                <div>
+                                    <label class="form-label">
+                                        <span>Page Slug: </span>
+                                        <sup class="text-danger">*</sup>
+                                        <a class="mx-2 text-primary" href="javascript:void(0)">
+                                            {{ url('/').'/page/' }}<span class="slug-preview"></span>
+                                        </a>
+                                    </label>
+                                    <input type="text" class="form-control slug-input @error('slug') is-invalid @enderror"
+                                           name="slug" value="{{ old('slug') }}" required>
+                                    @error('slug') <span class="text-danger fw-bold">{{ $message }}</span> @enderror
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -49,37 +66,13 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/ckeditor5-classic-free-full-feature@35.4.1/build/ckeditor.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.editor').forEach(function (editorElement) {
-                ClassicEditor
-                    .create(editorElement, {
-
-                        removePlugins: ['Markdown'],
-                        htmlSupport: {
-                            allow: [
-                                {
-                                    name: /.*/,
-                                    attributes: true,
-                                    classes: true,
-                                    styles: true
-                                }
-                            ]
-                        }
-                    })
-                    .then(editor => {
-                        editor.model.document.on('change:data', () => {
-                            const data = editor.getData();
-                            const cleanData = data.replace(/\*\*(.*?)\*\*/g, '$1');
-                            editorElement.value = cleanData;
-                            console.log('Editor content:', cleanData);
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+        $('#submitForm').on('submit', function(e) {
+            $('.quill-editor').each(function() {
+                const textareaId = $(this).attr('id');
+                $(this).val(quillEditors[textareaId].root.innerHTML);
             });
         });
     </script>
 @endpush
+

@@ -24,6 +24,7 @@ return [
     'role' => 'Role',
     'created_at' => 'Created at',
     'active' => 'Active',
+    'inactive' => 'Inactive',
     'actions' => 'Actions',
     'enter' => 'Enter',
     'save' => 'Save',
@@ -329,5 +330,13 @@ return [
     'date_from' => 'Date From',
     'date_to' => 'Date To',
     'success_reorder' => 'Order updated successfully',
-    'image_sorting_alert' => 'You can now sort your uploaded images. Drag and drop images to reorder them. The first image in the list will be the main image.'
+    'image_sorting_alert' => 'You can now sort your uploaded images. Drag and drop images to reorder them. The first image in the list will be the main image.',
+    'page_slug' => 'Page Slug',
+    'faqs' => 'FAQs',
+    'faq' => 'FAQ',
+    'faq_groups' => 'FAQ Groups',
+    'faq_group' => 'FAQ Group',
+    'order' => 'Order',
+    'question' => 'Question',
+    'answer' => 'Answer',
 ];

@@ -29,11 +29,6 @@ class UpdateProfileRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:50', 'regex:/^[\p{Arabic}a-zA-Z]+$/u', new NoEmailOrPhone],
             'gender' => ['required', 'string', 'in:male,female'],
             'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'], // Max size is 1MB
-            'longitude' => ['nullable', 'numeric'],
-            'latitude' => ['nullable', 'numeric'],
-            'description' => ['nullable', 'string'],
-            'categories' => ['nullable', 'array'],
-            'categories.*' => ['integer', 'exists:categories,id'],
         ];
     }
 

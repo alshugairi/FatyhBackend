@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\{Models\User,};
+use App\{Enums\StatusEnum, Models\User};
 use Illuminate\Support\Facades\Cache;
 use App\Models\Settings;
 use Illuminate\Support\Arr;
@@ -40,9 +40,18 @@ class DesignHelper
     public static function parseOrderStatus(int $status, $isHtml = true): string
     {
         return match ($status) {
-            StatusEnum::InActive->value => $isHtml ? "<span class='badge badge-danger'>".__('share.inactive')."</span>" : __('share.inactive'),
-            StatusEnum::Active->value =>  $isHtml ? "<span class='badge badge-primary'>".__('share.active')."</span>" : __('share.active'),
-            StatusEnum::Deleted->value => $isHtml ? "<span class='badge badge-danger'>".__('share.deleted')."</span>" : __('share.deleted'),
+            StatusEnum::INACTIVE->value => $isHtml ? "<span class='badge bg-danger'>".__('admin.inactive')."</span>" : __('admin.inactive'),
+            StatusEnum::ACTIVE->value =>  $isHtml ? "<span class='badge bg-primary'>".__('admin.active')."</span>" : __('admin.active'),
+            StatusEnum::DELETED->value => $isHtml ? "<span class='badge bg-danger'>".__('admin.deleted')."</span>" : __('admin.deleted'),
+            default => "",
+        };
+    }
+
+    public static function renderStatus(int $status, $isHtml = true): string
+    {
+        return match ($status) {
+            StatusEnum::INACTIVE->value => $isHtml ? "<span class='badge bg-danger'>".__('admin.inactive')."</span>" : __('admin.inactive'),
+            StatusEnum::ACTIVE->value =>  $isHtml ? "<span class='badge bg-primary'>".__('admin.active')."</span>" : __('admin.active'),
             default => "",
         };
     }

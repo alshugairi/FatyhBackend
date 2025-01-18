@@ -46,6 +46,9 @@
             <a href="{{ route('admin.pages.index') }}" class="list-item d-block {{ $designHelper::isActive(['pages'])}}">
                 <i class="fa-regular fa-file me-2"></i> {{ __('admin.pages') }}
             </a>
+            <a href="{{ route('admin.faqs.index') }}" class="list-item d-block {{ $designHelper::isActive(['faqs','faq-groups']) }}">
+                <i class="fa-regular fa-question me-2"></i> {{ __('admin.faqs') }}
+            </a>
             <a href="{{ route('admin.sliders.index') }}" class="list-item d-block {{ $designHelper::isActive(['sliders'])}}">
                 <i class="fa-solid fa-images me-2"></i> {{ __('admin.sliders') }}
             </a>

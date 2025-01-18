@@ -5,6 +5,8 @@ namespace App\Routes\Admin;
 use App\{Http\Controllers\Admin\Settings\CityController,
     Http\Controllers\Admin\Settings\CountryController,
     Http\Controllers\Admin\Settings\CurrencyController,
+    Http\Controllers\Admin\Settings\FaqController,
+    Http\Controllers\Admin\Settings\FaqGroupController,
     Http\Controllers\Admin\Settings\LanguageController,
     Http\Controllers\Admin\Settings\PageController,
     Http\Controllers\Admin\Settings\PermissionController,
@@ -32,6 +34,8 @@ class SettingsRoutes implements RoutesInterface
         self::permissionsRoute();
         self::languagesRoute();
         self::pagesRoute();
+        self::faqGroupsRoute();
+        self::faqsRoute();
         self::slidersRoute();
         self::returnReasonsRoute();
         self::menusRoute();
@@ -137,6 +141,21 @@ class SettingsRoutes implements RoutesInterface
     {
         Route::get(uri: 'pages/list', action: [PageController::class, 'list'])->name(name: 'pages.list');
         Route::resource(name: 'pages', controller: PageController::class);
+    }
+
+    /**
+     * @return void
+     */
+    private static function faqGroupsRoute(): void
+    {
+        Route::get(uri: 'faq-groups/list', action: [FaqGroupController::class, 'list'])->name(name: 'faq_groups.list');
+        Route::resource(name: 'faq-groups', controller: FaqGroupController::class)->names('faq_groups');
+    }
+
+    private static function faqsRoute(): void
+    {
+        Route::get(uri: 'faqs/list', action: [FaqController::class, 'list'])->name(name: 'faqs.list');
+        Route::resource(name: 'faqs', controller: FaqController::class);
     }
 
     /**

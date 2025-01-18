@@ -19,6 +19,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{{ asset('public/assets/admin') }}/js/scripts.js"></script>
 
 
 <script>
@@ -249,18 +250,6 @@
             });
         });
 
-        $('#filterForm').submit(function (e){
-            e.preventDefault();
-            dataTable.ajax.reload();
-            $('#filterSidebar').removeClass('open');
-        });
-        $('#filterBtn').on('click', function() {
-            $('#filterSidebar').addClass('open');
-        });
-
-        $('#closeSidebar').on('click', function() {
-            $('#filterSidebar').removeClass('open');
-        });
 </script>
 @stack('scripts')
 </body>

@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\{Enums\StatusEnum,
-    Http\Controllers\Controller,
+use App\{Http\Controllers\Controller,
+    Http\Requests\Api\ContactRequest,
     Http\Resources\General\CityResource,
     Http\Resources\General\CountryResource,
+    Http\Resources\General\FaqGroupResource,
+    Http\Resources\General\FaqResource,
+    Http\Resources\General\PageResource,
     Pipelines\Settings\CityFilterPipeline,
+    Pipelines\Settings\FaqGroupFilterPipeline,
+    Pipelines\Settings\PostFilterPipeline,
+    Services\ContactService,
     Services\Settings\CityService,
     Services\Settings\CountryService,
+    Services\Settings\FaqGroupService,
+    Services\Settings\PostService,
     Utils\HttpFoundation\Response};
 use Illuminate\Http\Request;
 
@@ -29,6 +37,32 @@ class GeneralController extends Controller
             data: CityResource::collection(app(CityService::class)->getAll(filters: [
                 new CityFilterPipeline(request: $request),
             ]))
+        );
+    }
+
+    public function page(string $slug): Response
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+            data: new PageResource(app(PostService::class)->getBySlug($slug))
+        );
+    }
+
+    public function faqsGroups(): Response
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+            data: FaqGroupResource::collection(app(FaqGroupService::class)->getAll(filters: [
+                new FaqGroupFilterPipeline(request: request()->merge(['is_active' => 1])),
+            ], relations: ['faqs']))
+        );
+    }
+
+    public function contact(ContactRequest $request): Response
+    {
+        app(ContactService::class)->create(data: $request->validated());
+        return Response::response(
+            message: __(key:'share.msg_sent_successfully'),
         );
     }
 }

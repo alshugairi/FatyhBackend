@@ -24,6 +24,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'cities' => ['view', 'create', 'edit', 'delete'],
             'currencies' => ['view', 'create', 'edit', 'delete'],
             'pages' => ['view', 'create', 'edit', 'delete'],
+            'faqs' => ['view', 'create', 'edit', 'delete'],
+            'faq_groups' => ['view', 'create', 'edit', 'delete'],
             'sliders' => ['view', 'create', 'edit', 'delete'],
             'units' => ['view', 'create', 'edit', 'delete'],
             'brands' => ['view', 'create', 'edit', 'delete'],
@@ -61,6 +63,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Assign all permissions to the admin role
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $allPermissions = Permission::pluck('name')->toArray();
+
         $adminRole->givePermissionTo($allPermissions);
 
         $adminUser = User::where('email', 'admin@admin.com')->first();

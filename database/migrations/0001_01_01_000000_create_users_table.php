@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('type')->default(UserType::CLIENT->value)->index();
             $table->string('country_code')->nullable();
             $table->string('phone')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->enum('gender', ['male', 'female'])->default('male')->index();
             $table->integer('country_id')->nullable()->index();
             $table->integer('city_id')->nullable()->index();
             $table->integer('status')->default(UserType::CLIENT->value)->index();
