@@ -18,7 +18,7 @@ class Faq extends Model
     ];
 
     protected $fillable = [
-        'faq_group_id',
+        'category_id',
         'question',
         'answer',
         'order',
@@ -28,7 +28,7 @@ class Faq extends Model
     ];
 
     protected $casts = [
-        'faq_group_id' => 'integer',
+        'category_id' => 'integer',
         'question' => 'array',
         'answer' => 'array',
         'order' => 'integer',
@@ -41,9 +41,9 @@ class Faq extends Model
         'formatted_created_at'
     ];
 
-    public function group()
+    public function category()
     {
-        return $this->belongsTo(FaqGroup::class, 'faq_group_id');
+        return $this->belongsTo(FaqCategory::class, 'category_id');
     }
 
     public function creator()

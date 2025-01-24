@@ -3,15 +3,15 @@
 namespace App\Services\Settings;
 
 use App\Helpers\DesignHelper;
-use App\Repositories\Settings\FaqGroupRepository;
+use App\Repositories\Settings\FaqCategoryRepository;
 use App\Services\BaseService;
 use Illuminate\{Http\JsonResponse, Pipeline\Pipeline};
 use Yajra\DataTables\DataTables;
 use Exception;
 
-class FaqGroupService extends BaseService
+class FaqCategoryService extends BaseService
 {
-    public function __construct(FaqGroupRepository$repository)
+    public function __construct(FaqCategoryRepository $repository)
     {
         parent::__construct($repository);
     }

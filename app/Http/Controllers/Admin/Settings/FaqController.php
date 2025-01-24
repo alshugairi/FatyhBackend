@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Settings;
 use App\{Http\Controllers\Controller,
     Http\Requests\Admin\Settings\FaqRequest,
     Models\Faq,
-    Models\FaqGroup,
+    Models\FaqCategory,
     Services\Settings\FaqService};
 use Illuminate\{Contracts\View\View, Http\JsonResponse, Http\RedirectResponse};
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class FaqController extends Controller
 
     public function create(): View
     {
-        $faqGroups = FaqGroup::toSelect();
+        $categories = FaqCategory::toSelect();
         return view('admin.modules.settings.faqs.create', get_defined_vars());
     }
 
@@ -36,7 +36,7 @@ class FaqController extends Controller
 
     public function edit(Faq $faq): View
     {
-        $faqGroups = FaqGroup::toSelect();
+        $categories = FaqCategory::toSelect();
         return view('admin.modules.settings.faqs.edit', get_defined_vars());
     }
 
@@ -56,6 +56,6 @@ class FaqController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        return $this->service->list(relations: ['group']);
+        return $this->service->list(relations: ['category']);
     }
 }

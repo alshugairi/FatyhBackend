@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faq_groups', function (Blueprint $table) {
+        Schema::create('faq_categories', function (Blueprint $table) {
             $table->id();
             $table->json('name');
             $table->string('slug')->unique()->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
 
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('faq_group_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('faq_categories')->onDelete('cascade');
             $table->json('question');
             $table->json('answer')->nullable();
             $table->integer('order')->default(0);
@@ -40,7 +40,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faq_groups');
+        Schema::dropIfExists('faq_categories');
         Schema::dropIfExists('faqs');
     }
 };

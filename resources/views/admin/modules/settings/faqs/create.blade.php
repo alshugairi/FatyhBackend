@@ -37,7 +37,7 @@
                                     @endforeach
                                 </x-layouts.language-tabs>
                                 <div class="row">
-                                    <x-form.select col="col-md-4" required="true" :options="$faqGroups" name="faq_group_id" labelName="{{ trans('admin.faq_group') }}"/>
+                                    <x-form.select col="col-md-4" required="true" :options="$categories" name="category_id" labelName="{{ trans('admin.category') }}"/>
                                     <x-form.input col="col-md-4" required="true" type="number" name="order" value="1" labelName="{{ trans('admin.order') }}"/>
                                     <x-form.switch col="col-md-4" name="is_active" value="1" labelName="{{ trans('admin.active') }}"/>
                                 </div>

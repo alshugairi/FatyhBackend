@@ -22,7 +22,7 @@ class FaqService extends BaseService
 
         return DataTables::of(app(Pipeline::class)->send($query)->through($filters)->thenReturn())
             ->editColumn('question', function ($item){ return $item->question; })
-            ->editColumn('group', function ($item){ return $item->group?->name; })
+            ->editColumn('category', function ($item){ return $item->category?->name; })
             ->editColumn('is_active', function ($item){ return DesignHelper::renderStatus(status: $item->is_active); })
             ->rawColumns(['is_active'])
             ->toJson();

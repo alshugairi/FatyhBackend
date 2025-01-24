@@ -5,7 +5,7 @@ namespace App\Http\Resources\General;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FaqGroupResource extends JsonResource
+class FaqCategoryResource extends JsonResource
 {
     public function __construct($resource)
     {

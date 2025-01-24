@@ -6,7 +6,7 @@ use App\{Http\Controllers\Admin\Settings\CityController,
     Http\Controllers\Admin\Settings\CountryController,
     Http\Controllers\Admin\Settings\CurrencyController,
     Http\Controllers\Admin\Settings\FaqController,
-    Http\Controllers\Admin\Settings\FaqGroupController,
+    Http\Controllers\Admin\Settings\FaqCategoryController,
     Http\Controllers\Admin\Settings\LanguageController,
     Http\Controllers\Admin\Settings\PageController,
     Http\Controllers\Admin\Settings\PermissionController,
@@ -34,7 +34,7 @@ class SettingsRoutes implements RoutesInterface
         self::permissionsRoute();
         self::languagesRoute();
         self::pagesRoute();
-        self::faqGroupsRoute();
+        self::faqCategoriesRoute();
         self::faqsRoute();
         self::slidersRoute();
         self::returnReasonsRoute();
@@ -146,10 +146,10 @@ class SettingsRoutes implements RoutesInterface
     /**
      * @return void
      */
-    private static function faqGroupsRoute(): void
+    private static function faqCategoriesRoute(): void
     {
-        Route::get(uri: 'faq-groups/list', action: [FaqGroupController::class, 'list'])->name(name: 'faq_groups.list');
-        Route::resource(name: 'faq-groups', controller: FaqGroupController::class)->names('faq_groups');
+        Route::get(uri: 'faq-categories/list', action: [FaqCategoryController::class, 'list'])->name(name: 'faq_categories.list');
+        Route::resource(name: 'faq-categories', controller: FaqCategoryController::class)->names('faq_categories');
     }
 
     private static function faqsRoute(): void

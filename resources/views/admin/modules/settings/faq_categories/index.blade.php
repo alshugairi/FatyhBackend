@@ -18,15 +18,15 @@
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{ route('admin.faq_groups.index') }}" class="list-item d-block active text-center">
-                                    {{ __('admin.faq_groups') }}
+                                <a href="{{ route('admin.faq_categories.index') }}" class="list-item d-block active text-center">
+                                    {{ __('admin.faq_categories') }}
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('admin.faq_groups') }}</h3>
+                            <h3 class="card-title">{{ __('admin.faq_categories') }}</h3>
                             <div class="card-tools">
                                 <x-datatable.export/>
                                 <x-datatable.filter>
@@ -39,7 +39,7 @@
                                     </x-slot>
                                 </x-datatable.filter>
                                 @can('admins.create')
-                                    <x-datatable.create href="{{ route('admin.faq_groups.create') }}" module="{{ __('admin.faq') }}"/>
+                                    <x-datatable.create href="{{ route('admin.faq_categories.create') }}" module="{{ __('admin.faq_category') }}"/>
                                 @endcan
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                         <th>{{ __('admin.name') }}</th>
                                         <th>{{ __('admin.active') }}</th>
                                         <th>{{ __('admin.created_at') }}</th>
-                                        @canany(['faq_groups.edit','faq_groups.delete'])
+                                        @canany(['faq_categories.edit','faq_categories.delete'])
                                             <th>{{ __('admin.actions') }}</th>
                                         @endcanany
                                     </tr>
@@ -77,7 +77,7 @@
                 pageLength: 100,
                 order: [[ 0, "desc" ]],
                 ajax: {
-                    url: '{!! route('admin.faq_groups.list') !!}',
+                    url: '{!! route('admin.faq_categories.list') !!}',
                     data: function (d) {
                         //d.type = ";
                     }
@@ -87,19 +87,19 @@
                     { data: 'name', name: 'name' },
                     { data: 'is_active', name: 'is_active' },
                     { data: 'formatted_created_at', name: 'created_at' },
-                    @canany(['faq_groups.edit','faq_groups.delete'])
+                    @canany(['faq_categories.edit','faq_categories.delete'])
                     {data: 'actions',name: 'actions',orderable: false,searchable: false},
                     @endcanany
                 ],
                 columnDefs: [
-                        @canany(['faq_groups.edit','faq_groups.delete'])
+                        @canany(['faq_categories.edit','faq_categories.delete'])
                     {
                         "targets": -1,
                         "render": function (data, type, row) {
-                            var editUrl = '{{ route("admin.faq_groups.edit", ":id") }}';
+                            var editUrl = '{{ route("admin.faq_categories.edit", ":id") }}';
                             editUrl = editUrl.replace(':id', row.id);
 
-                            var deleteUrl = '{{ route("admin.faq_groups.destroy", ":id") }}';
+                            var deleteUrl = '{{ route("admin.faq_categories.destroy", ":id") }}';
                             deleteUrl = deleteUrl.replace(':id', row.id);
 
                             return `<div class='btn-actions'>

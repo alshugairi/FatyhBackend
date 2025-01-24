@@ -18,8 +18,8 @@
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{ route('admin.faq_groups.index') }}" class="list-item d-block text-center">
-                                    {{ __('admin.faq_groups') }}
+                                <a href="{{ route('admin.faq_categories.index') }}" class="list-item d-block text-center">
+                                    {{ __('admin.faq_categories') }}
                                 </a>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <tr>
                                         <th></th>
                                         <th>{{ __('admin.question') }}</th>
-                                        <th>{{ __('admin.faq_group') }}</th>
+                                        <th>{{ __('admin.category') }}</th>
                                         <th>{{ __('admin.active') }}</th>
                                         <th>{{ __('admin.created_at') }}</th>
                                         @canany(['faqs.edit','faqs.delete'])
@@ -86,7 +86,7 @@
                 columns: [
                     { data: 'id', name: 'id',visible: false},
                     { data: 'question', name: 'question' },
-                    { data: 'group', name: 'faq_group_id' },
+                    { data: 'category', name: 'category_id' },
                     { data: 'is_active', name: 'is_active' },
                     { data: 'formatted_created_at', name: 'created_at' },
                     @canany(['faqs.edit','faqs.delete'])

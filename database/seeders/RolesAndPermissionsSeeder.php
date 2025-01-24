@@ -25,7 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'currencies' => ['view', 'create', 'edit', 'delete'],
             'pages' => ['view', 'create', 'edit', 'delete'],
             'faqs' => ['view', 'create', 'edit', 'delete'],
-            'faq_groups' => ['view', 'create', 'edit', 'delete'],
+            'faq_categories' => ['view', 'create', 'edit', 'delete'],
             'sliders' => ['view', 'create', 'edit', 'delete'],
             'units' => ['view', 'create', 'edit', 'delete'],
             'brands' => ['view', 'create', 'edit', 'delete'],

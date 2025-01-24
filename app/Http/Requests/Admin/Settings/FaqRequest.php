@@ -24,7 +24,7 @@ class FaqRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'faq_group_id' => 'required|exists:faq_groups,id',
+            'category_id' => 'required|exists:faq_categories,id',
             'question' => ['required', 'array'],
             'question.*' => ['required', 'string', 'max:255'],
             'answer' => ['nullable', 'array'],

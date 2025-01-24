@@ -5,7 +5,7 @@ namespace App\Pipelines\Settings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class FaqGroupFilterPipeline
+class FaqCategoryFilterPipeline
 {
     /**
      * @param Request $request

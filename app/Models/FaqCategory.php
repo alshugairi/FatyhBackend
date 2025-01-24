@@ -6,11 +6,11 @@ use App\Traits\ModelAttributesTrait;
 use Illuminate\Database\Eloquent\{Factories\HasFactory, Model, Relations\BelongsTo, Relations\HasMany, SoftDeletes};
 use Spatie\Translatable\HasTranslations;
 
-class FaqGroup extends Model
+class FaqCategory extends Model
 {
     use HasFactory,HasTranslations, ModelAttributesTrait;
 
-    protected $table = 'faq_groups';
+    protected $table = 'faq_categories';
 
     public $translatable = [
         'name',
@@ -43,7 +43,7 @@ class FaqGroup extends Model
 
     public function faqs(): HasMany
     {
-        return $this->hasMany(Faq::class);
+        return $this->hasMany(Faq::class, 'category_id');
     }
 
     public function creator(): BelongsTo

@@ -6,16 +6,16 @@ use App\{Http\Controllers\Controller,
     Http\Requests\Api\ContactRequest,
     Http\Resources\General\CityResource,
     Http\Resources\General\CountryResource,
-    Http\Resources\General\FaqGroupResource,
+    Http\Resources\General\FaqCategoryResource,
     Http\Resources\General\FaqResource,
     Http\Resources\General\PageResource,
     Pipelines\Settings\CityFilterPipeline,
-    Pipelines\Settings\FaqGroupFilterPipeline,
+    Pipelines\Settings\FaqCategoryFilterPipeline,
     Pipelines\Settings\PostFilterPipeline,
     Services\ContactService,
     Services\Settings\CityService,
     Services\Settings\CountryService,
-    Services\Settings\FaqGroupService,
+    Services\Settings\FaqCategoryService,
     Services\Settings\PostService,
     Utils\HttpFoundation\Response};
 use Illuminate\Http\Request;
@@ -48,12 +48,12 @@ class GeneralController extends Controller
         );
     }
 
-    public function faqsGroups(): Response
+    public function faqCategories(): Response
     {
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: FaqGroupResource::collection(app(FaqGroupService::class)->getAll(filters: [
-                new FaqGroupFilterPipeline(request: request()->merge(['is_active' => 1])),
+            data: FaqCategoryResource::collection(app(FaqCategoryService::class)->getAll(filters: [
+                new FaqCategoryFilterPipeline(request: request()->merge(['is_active' => 1])),
             ], relations: ['faqs']))
         );
     }
