@@ -20,7 +20,10 @@ class Post extends Model
     public $translatable = [
         'name',
         'description',
-        'content'
+        'content',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
     ];
 
     protected $fillable = [

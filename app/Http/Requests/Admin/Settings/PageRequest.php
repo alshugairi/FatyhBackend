@@ -26,7 +26,7 @@ class PageRequest extends FormRequest
         $rules['name'] = ['required', 'array'];
         $rules['name.*'] = ['required', 'string', 'max:255'];
         $rules['content'] = ['nullable', 'array'];
-        $rules['content.*'] = ['nullable', 'string', 'max:1000'];
+        $rules['content.*'] = ['nullable', 'string'];
 
         $rules['slug'] = [
             'required',

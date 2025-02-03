@@ -20,6 +20,7 @@ class PageResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'name' => $this->name,
             'content' => $this->content,
         ];
     }

@@ -32,13 +32,16 @@
                                                               label="true" labelName="{{ __('admin.name') }}"/>
                                                 <div class="col-12 mb-3">
                                                     <label class="form-label">{{ __('admin.content') }}</label>
-                                                    <textarea class="form-control quill-editor"
+                                                    <textarea class="form-control quill-editor @error('content.' . $appLanguage->code) is-invalid @enderror"
                                                               id="content_{{ $appLanguage->code }}"
                                                               name="content[{{ $appLanguage->code }}]"
                                                               style="display: none;">{{ $page->getTranslation('content', $appLanguage->code) }}</textarea>
                                                     <div id="editor_content_{{ $appLanguage->code }}"
                                                          class="quill-container">{!! $page->getTranslation('content', $appLanguage->code) !!}
                                                     </div>
+                                                    @error('content.' . $appLanguage->code)
+                                                    <span class="text-danger fw-bold">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>

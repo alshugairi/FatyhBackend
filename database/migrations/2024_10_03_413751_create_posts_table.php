@@ -25,9 +25,9 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('icon')->nullable();
             $table->string('image')->nullable();
-            $table->string('seo_title')->nullable();
-            $table->text('seo_description')->nullable();
-            $table->text('seo_keywords')->nullable();
+            $table->json('seo_title')->nullable();
+            $table->json('seo_description')->nullable();
+            $table->json('seo_keywords')->nullable();
 
 
             $table->unsignedBigInteger('creator_id')->nullable();
