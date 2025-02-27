@@ -3,6 +3,7 @@
 namespace App\Routes\Api;
 
 use App\{Http\Controllers\Api\Catalog\CategoryController,
+    Http\Controllers\Api\Catalog\ProductController,
     Http\Controllers\Api\Catalog\BrandController,
     Routes\Interfaces\RoutesInterface};
 use Illuminate\Support\Facades\Route;
@@ -11,8 +12,16 @@ class CatalogRoutes implements RoutesInterface
 {
     public static function registerRoutes(): void
     {
-        self::categoriesRoute();
-        self::brandsRoute();
+        Route::group(attributes: ['middleware' => ['optional.auth']], routes: static function () {
+            self::productsRoute();
+            self::categoriesRoute();
+            self::brandsRoute();
+        });
+    }
+
+    private static function productsRoute(): void
+    {
+        Route::get(uri: 'products/{id}', action: [ProductController::class, 'show']);
     }
 
     private static function categoriesRoute(): void
