@@ -42,7 +42,8 @@
                         <div class="row">
                             <x-form.select col="col-md-4" name="parent_id" :options="$parentCategories" labelName="{{ trans('admin.parent_category') }}"/>
                             <x-form.input col="col-md-4" name="icon" labelName="{{ trans('admin.icon') }}"/>
-                            <x-form.switch col="col-md-4" name="status" value="1" labelName="{{ trans('admin.active') }}"/>
+                            <x-form.switch col="col-md-2" name="status" value="1" labelName="{{ trans('admin.active') }}"/>
+                            <x-form.switch col="col-md-2" name="is_featured" value="1" labelName="{{ trans('admin.is_featured') }}"/>
                             <div class="clearfix"></div>
                             <div class="col-md-4 mb-3">
                                 <x-form.input type="file" name="image" classes="imageInput" labelName="{{ trans('admin.image') }}"/>

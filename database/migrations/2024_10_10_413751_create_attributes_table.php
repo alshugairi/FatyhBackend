@@ -42,7 +42,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
         Schema::dropIfExists('attribute_options');
+        Schema::dropIfExists('attributes');
     }
 };

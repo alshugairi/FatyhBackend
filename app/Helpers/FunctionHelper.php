@@ -10,6 +10,7 @@ use App\{Models\User,
     Models\Post,Enums\PostType};
 use Illuminate\Support\{Facades\Cache, Arr, Facades\Storage};
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 if (!function_exists(function: 'render_table_image')) {
     function render_table_image(string $path): string
@@ -134,7 +135,104 @@ if (!function_exists('get_timezones')) {
 }
 
 if (!function_exists('upload_file')) {
-    function upload_file(array $data, string $fieldName, string $folder, string $oldFile = null, string $disk = 'public'): array
+    function upload_file($file, string $folder, string $oldFile = null, string $disk = 'public'): ?string
+    {
+        try {
+            if (empty($file)) {
+                return null;
+            }
+            if ($oldFile && Storage::disk($disk)->exists($oldFile)) {
+                Storage::disk($disk)->delete($oldFile);
+            }
+            if (is_string($file) && file_exists($file)) {
+                $extension = pathinfo($file, PATHINFO_EXTENSION);
+                $filename = Str::random(40) . '.' . $extension;
+                $path = trim($folder, '/') . '/' . $filename;
+
+                $options = [];
+                if (in_array($disk, ['spaces', 's3'])) {
+                    $options = [
+                        'visibility' => 'public',
+                        'ContentType' => mime_content_type($file),
+                        'ACL' => 'public-read',
+                        'CacheControl' => 'max-age=31536000'
+                    ];
+                }
+
+                Storage::disk($disk)->put($path, file_get_contents($file), $options);
+
+                return $path;
+            }
+            else if ($file instanceof \Illuminate\Http\UploadedFile) {
+                $extension = $file->getClientOriginalExtension();
+                $filename = Str::random(40) . '.' . $extension;
+
+                return $file->storeAs(
+                    $folder,
+                    $filename,
+                    [
+                        'disk' => $disk,
+                        'visibility' => 'public'
+                    ]
+                );
+            }
+            else {
+                throw new \InvalidArgumentException('Invalid file input');
+            }
+        } catch (Exception $e) {
+            throw new \RuntimeException('Failed to upload file: ' . $e->getMessage());
+        }
+    }
+}
+
+if (!function_exists('upload_large_file')) {
+    function upload_large_file($file, string $folder, string $disk = 'public', string $oldFile = null, int $chunkSize = 5 * 1024 * 1024): string
+    {
+        try {
+            if (is_string($file) && file_exists($file)) {
+                $extension = pathinfo($file, PATHINFO_EXTENSION);
+                $filename = uniqid() . '_' . time() . '.' . $extension;
+                $path = trim($folder, '/') . '/' . $filename;
+                $mimeType = mime_content_type($file);
+                $stream = fopen($file, 'r');
+            }
+            else if ($file instanceof \Illuminate\Http\UploadedFile) {
+                $extension = $file->getClientOriginalExtension();
+                $filename = uniqid() . '_' . time() . '.' . $extension;
+                $path = trim($folder, '/') . '/' . $filename;
+                $mimeType = $file->getMimeType();
+                $stream = fopen($file->getRealPath(), 'r');
+            }
+            else {
+                throw new \InvalidArgumentException('Invalid file input');
+            }
+
+            $upload = Storage::disk($disk)->getClient()->upload(
+                config('filesystems.disks.'.$disk.'.bucket'),
+                $path,
+                $stream,
+                'public-read',
+                [
+                    'mup_threshold' => $chunkSize,
+                    'params' => [
+                        'ACL' => 'public-read',
+                        'ContentType' => $mimeType,
+                        'CacheControl' => 'max-age=31536000'
+                    ]
+                ]
+            );
+
+            fclose($stream);
+            return $path;
+
+        } catch (Exception $e) {
+            throw new \RuntimeException('Failed to upload large file: ' . $e->getMessage());
+        }
+    }
+}
+
+if (!function_exists('upload_file1')) {
+    function upload_file1(array $data, string $fieldName, string $folder, string $oldFile = null, string $disk = 'public'): array
     {
         if (!empty($data[$fieldName])) {
             try {
@@ -169,7 +267,11 @@ if (!function_exists('delete_file')) {
 if (!function_exists('get_full_image_url')) {
     function get_full_image_url(?string $relativePath): string
     {
-        return $relativePath ? asset(Storage::url($relativePath)) : asset('assets/admin/images/no-image.png');
+        if (!$relativePath) {
+            return asset('assets/admin/images/no-image.png');
+        }
+
+        return asset('public/storage/' . $relativePath);
     }
 }
 

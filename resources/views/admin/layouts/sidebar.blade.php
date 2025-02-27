@@ -63,12 +63,12 @@
                         <p>{{ __('admin.online_orders') }}</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class='nav-link {{ $designHelper::isActive(['orders'])}}' href="{{ route('admin.orders.index') }}?platform=pos">
-                        <i class="nav-icon fa-solid fa-cash-register"></i>
-                        <p>{{ __('admin.pos_orders') }}</p>
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class='nav-link {{ $designHelper::isActive(['orders'])}}' href="{{ route('admin.orders.index') }}?platform=pos">--}}
+{{--                        <i class="nav-icon fa-solid fa-cash-register"></i>--}}
+{{--                        <p>{{ __('admin.pos_orders') }}</p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-file-invoice"></i>

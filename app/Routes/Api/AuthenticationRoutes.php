@@ -31,7 +31,7 @@ class AuthenticationRoutes implements RoutesInterface
             Route::post(uri: 'verify', action: [VerificationController::class, 'verify']);
             Route::post(uri: 'resend-OTP', action: [VerificationController::class, 'resendOTP'])->middleware('throttle:5,1');
 
-            Route::group(attributes: ['middleware' => ['account.status']], routes: static function () {
+            Route::group(attributes: [], routes: static function () {
                 Route::post(uri: 'logout', action: [AuthenticationController::class, 'logout']);
                 Route::post(uri: 'refresh-token', action: [AuthenticationController::class, 'refreshToken']);
                 Route::post(uri: 'reset-password', action: [PasswordController::class, 'resetPassword']);

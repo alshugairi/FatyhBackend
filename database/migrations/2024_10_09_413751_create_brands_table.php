@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->integer('status')->default(0);
+            $table->integer('is_featured')->default(0);
             $table->string('image')->nullable();
 
             $table->unsignedBigInteger('creator_id')->nullable();

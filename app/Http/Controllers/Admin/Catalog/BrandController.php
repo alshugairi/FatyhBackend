@@ -42,7 +42,9 @@ class BrandController extends Controller
         public function store(BrandRequest $request): RedirectResponse
         {
             $data = $request->validated();
-            $data = upload_file($data, 'image', 'catalog/brands');
+            if (isset($data['image'])) {
+                $data['image'] = upload_file($data['image'], 'catalog/brands');
+            }
             $this->service->create(data: $data);
             flash(__('admin.created_successfully', ['module' => __('admin.brand')]))->success();
             return redirect()->route(route: 'admin.brands.index');
@@ -65,7 +67,9 @@ class BrandController extends Controller
         public function update(BrandRequest $request, Brand $brand): RedirectResponse
         {
             $data = $request->validated();
-            $data = upload_file($data, 'image', 'catalog/brands', $brand->image);
+            if (isset($data['image'])) {
+                $data['image'] = upload_file($data['image'], 'catalog/brands');
+            }
             $this->service->update(data: $data, id: $brand->id);
             flash(__('admin.updated_successfully', ['module' => __('admin.brand')]))->success();
             return redirect()->route(route: 'admin.brands.index');

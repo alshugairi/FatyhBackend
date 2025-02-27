@@ -26,13 +26,15 @@ class Brand extends Model
         'name',
         'description',
         'status',
+        'is_featured',
         'image',
     ];
 
     protected $casts = [
         'name' => 'string',
         'description' => 'string',
-        'status' => 'string',
+        'status' => 'int',
+        'is_featured' => 'int',
         'image' => 'string'
     ];
 

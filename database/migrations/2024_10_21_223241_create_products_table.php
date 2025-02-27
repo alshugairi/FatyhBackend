@@ -31,12 +31,15 @@ return new class extends Migration
             $table->unsignedInteger('stock_quantity')->nullable();
             $table->boolean('has_variants')->default(false)->index();
 
+            $table->foreignId('category_id')->nullable()->index()->constrained('categories')->onDelete('set null');
             $table->foreignId('brand_id')->nullable()->index()->constrained('brands')->onDelete('set null');
             $table->foreignId('parent_product_id')->nullable()->constrained('products')->onDelete('cascade');
 
             $table->decimal('rating', 2, 1)->default(0.0)->index();
             $table->string('image')->nullable();
             $table->json('gallery_images')->nullable();
+
+            $table->unsignedInteger('favourites_count')->default(0)->index();
 
             $table->json('meta_title')->nullable();
             $table->json('meta_description')->nullable();

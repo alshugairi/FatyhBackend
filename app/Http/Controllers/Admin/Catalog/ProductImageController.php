@@ -20,9 +20,8 @@ class ProductImageController extends Controller
     {
         $nextPositionNumber = $this->productImageService->getNextPositionNumberByProductId(productId: $product->id);
         $data = $request->validated();
-        $data = upload_file($data, 'image_file', 'catalog/products');
         $data['product_id'] = $product->id;
-        $data['image_path'] = $data['image_file'];
+        $data['image_path'] = upload_file($data['image_file'], 'catalog/products');
         $data['position'] = $nextPositionNumber;
         $productImage = $this->productImageService->create(data: $data);
         return Response::response(

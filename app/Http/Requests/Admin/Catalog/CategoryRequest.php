@@ -29,6 +29,7 @@ class CategoryRequest extends FormRequest
             'description' => ['nullable', 'array'],
             'description.*' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', 'boolean'],
+            'is_featured' => ['sometimes', 'boolean'],
             'icon' => ['nullable', 'string'],
             'parent_id' => ['nullable', 'integer', 'exists:categories,id'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
@@ -42,6 +43,7 @@ class CategoryRequest extends FormRequest
     {
         $this->merge([
             'status' => $this->boolean('status', false),
+            'is_featured' => $this->boolean('status', false),
         ]);
     }
 }

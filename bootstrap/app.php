@@ -7,10 +7,11 @@ use Illuminate\{Foundation\Application,
     Database\Eloquent\ModelNotFoundException,
     Validation\ValidationException,
     Support\Facades\Route};
-use App\Http\Middleware\Localization;
-use App\Http\Middleware\EnsureIsAdmin;
-use App\Http\Middleware\EnsureSessionId;
-use App\Http\Middleware\ApiKeyMiddleware;
+use App\Http\{Middleware\Localization,
+    Middleware\EnsureIsAdmin,
+    Middleware\EnsureSessionId,
+    Middleware\OptionalAuth,
+    Middleware\ApiKeyMiddleware};
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -22,10 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::middleware('web')
-                ->group(base_path('routes/admin.php'));
-            Route::middleware('web')
-                ->group(base_path('routes/account.php'));
+            Route::middleware('web')->group(base_path('routes/admin.php'));
+            Route::middleware('web')->group(base_path('routes/account.php'));
         },
     )
     ->withProviders([
@@ -34,6 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'EnsureIsAdmin'           => EnsureIsAdmin::class,
+            'optional.auth'           => OptionalAuth::class,
             'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
             'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
             'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,

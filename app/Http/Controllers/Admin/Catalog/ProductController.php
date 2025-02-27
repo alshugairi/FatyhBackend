@@ -43,7 +43,9 @@ class ProductController extends Controller
     public function store(ProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/products');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'catalog/products');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.product')]))->success();
         return redirect()->route(route: 'admin.products.index');
@@ -70,7 +72,9 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/products', $product->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'catalog/products', $product->image);
+        }
         $this->service->update(data: $data, id: $product->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.product')]))->success();
         return redirect()->route(route: 'admin.products.index');

@@ -29,6 +29,7 @@ class BrandRequest extends FormRequest
             'description' => ['nullable', 'array'],
             'description.*' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', 'boolean'],
+            'is_featured' => ['sometimes', 'boolean'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ];
     }
@@ -40,6 +41,7 @@ class BrandRequest extends FormRequest
     {
         $this->merge([
             'status' => $this->boolean('status', false),
+            'is_featured' => $this->boolean('status', false),
         ]);
     }
 }

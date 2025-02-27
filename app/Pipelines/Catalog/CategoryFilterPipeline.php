@@ -28,6 +28,9 @@ class CategoryFilterPipeline
                 }
             });
         }
+        if($this->request->filled('is_featured')) {
+            $theQuery->where('is_featured', $this->request->is_featured);
+        }
         return $theQuery;
     }
 }

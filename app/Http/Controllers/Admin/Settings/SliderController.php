@@ -43,7 +43,7 @@ class SliderController extends Controller
     public function store(SliderRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'settings/slider');
+        $data['image'] = upload_file($data['image'], 'settings/slider');
         $data['type'] = 'slider';
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.slider')]))->success();
@@ -67,7 +67,9 @@ class SliderController extends Controller
     public function update(SliderRequest $request, Post $slider): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'settings/slider', $slider->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'settings/slider');
+        }
         $this->service->update(data: $data, id: $slider->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.slider')]))->success();
         return redirect()->route(route: 'admin.sliders.index');

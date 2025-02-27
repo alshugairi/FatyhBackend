@@ -24,6 +24,9 @@ class BrandFilterPipeline
         if($this->request->filled('status')) {
             $theQuery->where('status', $this->request->status);
         }
+        if($this->request->filled('is_featured')) {
+            $theQuery->where('is_featured', $this->request->is_featured);
+        }
         return $theQuery;
     }
 }

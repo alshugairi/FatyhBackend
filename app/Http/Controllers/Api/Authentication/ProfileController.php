@@ -19,10 +19,9 @@ class ProfileController extends Controller
 
     public function index(): Response
     {
-        $user = auth()->user()->load('categories');
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: new ProfileResource(resource: $user)
+            data: new ProfileResource(resource: auth()->user())
         );
     }
 

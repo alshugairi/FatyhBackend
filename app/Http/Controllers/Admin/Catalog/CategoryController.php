@@ -44,7 +44,9 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/categories');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'catalog/categories');
+        }
         $this->service->create(data: $data);
         Cache::forget('categories');
         flash(__('admin.created_successfully', ['module' => __('admin.category')]))->success();
@@ -69,7 +71,9 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/categories', $category->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'catalog/categories', $category->image);
+        }
         $this->service->update(data: $data, id: $category->id);
         Cache::forget('categories');
         flash(__('admin.updated_successfully', ['module' => __('admin.category')]))->success();

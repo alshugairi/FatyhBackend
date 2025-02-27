@@ -339,4 +339,5 @@ return [
     'order' => 'Order',
     'question' => 'Question',
     'answer' => 'Answer',
+    'is_featured' => 'Is Featured?',
 ];

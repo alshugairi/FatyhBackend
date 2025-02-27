@@ -18,9 +18,11 @@ return new class extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->integer('status')->default(0);
+            $table->integer('is_featured')->default(0);
             $table->enum('type', ['product'])->default('product');
             $table->string('slug')->nullable()->unique();
             $table->integer('position')->default(0);
+            $table->unsignedInteger('products_count')->default(0)->index();
             $table->string('icon')->nullable();
             $table->string('image')->nullable();
 
