@@ -18,6 +18,9 @@ class ReviewFilterPipeline
     public function handle($query, \Closure $next): mixed
     {
         $theQuery = $next($query);
+        if($this->request->filled('business_id')){
+            $theQuery->where('business_id', $this->request->business_id);
+        }
         if($this->request->filled('product_id')){
             $theQuery->where('product_id', $this->request->product_id);
         }

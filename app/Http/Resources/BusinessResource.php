@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Catalog;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +16,8 @@ class BusinessResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'followers_count' => $this->followers_count
         ];
     }
 }

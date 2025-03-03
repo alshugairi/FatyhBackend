@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->integer('followers_count')->default(0);
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('editor_id')->nullable();
             $table->softDeletes();

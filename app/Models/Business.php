@@ -25,6 +25,7 @@ class Business extends Model
         'website',
         'status',
         'logo',
+        'followers_count',
         'creator_id',
         'editor_id'
     ];

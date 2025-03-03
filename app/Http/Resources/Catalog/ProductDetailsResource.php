@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Catalog;
 
+use App\Http\Resources\BusinessResource;
 use Illuminate\{Http\Request, Http\Resources\Json\JsonResource};
 
 class ProductDetailsResource extends JsonResource
