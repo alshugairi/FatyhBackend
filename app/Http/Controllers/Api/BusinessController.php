@@ -50,11 +50,14 @@ class BusinessController extends Controller
 
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: ReviewResource::collection(
-                $this->reviewService->index(filters: [
-                    new ReviewFilterPipeline(request: request()->merge(['business_id' => $business->id])),
-                ], paginate: 24)
-            )
+            data: [
+                'business' => new BusinessResource($business),
+                'reviews' => ReviewResource::collection(
+                    $this->reviewService->index(filters: [
+                        new ReviewFilterPipeline(request: request()->merge(['business_id' => $business->id])),
+                    ], paginate: 24)
+                )
+            ]
         );
     }
 }
