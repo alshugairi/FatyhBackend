@@ -18,4 +18,5 @@ return [
     'registration_failed' => 'Registration failed',
     'error' => 'Error',
     'msg_sent_successfully' => 'Message has been sent.',
+    'product_not_found' => 'Product not found',
 ];

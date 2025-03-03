@@ -100,6 +100,11 @@ class Product extends Model
         });
     }
 
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

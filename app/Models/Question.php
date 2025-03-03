@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\ModelAttributesTrait;
 use Illuminate\Database\Eloquent\{Factories\HasFactory, Model, Relations\BelongsTo, SoftDeletes};
 
-class Review extends Model
+class Question extends Model
 {
     use HasFactory,ModelAttributesTrait;
 
@@ -13,16 +13,16 @@ class Review extends Model
         'business_id',
         'product_id',
         'user_id',
-        'rating',
-        'review'
+        'question',
+        'reply'
     ];
 
     protected $casts = [
         'business_id' => 'integer',
         'product_id' => 'integer',
         'user_id' => 'integer',
-        'rating' => 'integer',
-        'review' => 'string',
+        'question' => 'string',
+        'reply' => 'string',
     ];
 
     protected $appends = [

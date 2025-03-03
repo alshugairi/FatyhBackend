@@ -43,9 +43,9 @@ abstract class BaseService
         return $this->repository->insert($data);
     }
 
-    public function find(int $id): ?Model
+    public function find(int $id, array $relations = []): ?Model
     {
-        return $this->repository->find($id);
+        return $this->repository->getModel()->with($relations)->find($id);
     }
 
     public function update(array $data, int $id): Model
