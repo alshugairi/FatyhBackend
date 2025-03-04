@@ -3,6 +3,8 @@
 namespace App\Routes\Api;
 
 use App\{Http\Controllers\Api\Account\AccountController,
+    Http\Controllers\Api\Account\ProfileController,
+    Http\Controllers\Api\Account\AddressController,
     Routes\Interfaces\RoutesInterface};
 use Illuminate\Support\Facades\Route;
 
@@ -12,8 +14,13 @@ class AccountRoutes implements RoutesInterface
     {
         Route::group(attributes: ['middleware' => ['auth:sanctum'], 'prefix' => 'account'], routes: static function () {
 
-            Route::get(uri: 'profile', action: [AccountController::class, 'profile']);
+            Route::get(uri: 'profile', action: [ProfileController::class, 'profile']);
+            Route::post(uri: 'profile', action: [ProfileController::class, 'updateProfile']);
+            Route::post(uri: 'change-password', action: [ProfileController::class, 'changePassword']);
+
             Route::get(uri: 'questions', action: [AccountController::class, 'questions']);
+
+            Route::get(uri: 'addresses', action: [AddressController::class, 'index']);
         });
     }
 }

@@ -27,6 +27,8 @@ class User extends Authenticatable
     protected $fillable = [
         'business_id',
         'name',
+        'first_name',
+        'last_name',
         'nickname',
         'type',
         'email',
@@ -64,6 +66,8 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'name' => 'string',
+            'first_name' => 'string',
+            'last_name' => 'string',
             'country_code' => 'string',
             'type' => 'string',
             'phone' => 'string',
