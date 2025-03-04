@@ -13,6 +13,7 @@ class AccountRoutes implements RoutesInterface
         Route::group(attributes: ['middleware' => ['auth:sanctum'], 'prefix' => 'account'], routes: static function () {
 
             Route::get(uri: 'profile', action: [AccountController::class, 'profile']);
+            Route::get(uri: 'questions', action: [AccountController::class, 'questions']);
         });
     }
 }
