@@ -20,4 +20,10 @@ return [
     'msg_sent_successfully' => 'Message has been sent.',
     'product_not_found' => 'Product not found',
     'business_not_found' => 'Business not found',
+    'home' => 'Home',
+    'new_arrivals' => 'New Arrivals',
+    'featured' => 'Featured',
+    'best_sellers' => 'Best Sellers',
+    'contact' => 'Contact',
+    'homepage' => 'Home',
 ];

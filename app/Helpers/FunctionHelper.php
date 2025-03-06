@@ -401,10 +401,14 @@ if (!function_exists('get_menu')) {
     function get_menu($position = null, $code = null)
     {
         $allMenus = Cache::rememberForever('all_menus', function () {
-            return Menu::where('status', StatusEnum::Active->value)
+            return Menu::where('status', StatusEnum::ACTIVE->value)
                 ->with('items.children')
                 ->get();
         });
+
+        if (is_null($position) && is_null($code)) {
+            return $allMenus;
+        }
 
         return $allMenus->when($position, function ($query) use ($position) {
                 return $query->where('position', $position);

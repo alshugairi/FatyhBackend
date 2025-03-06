@@ -22,6 +22,7 @@ class ProductResource extends JsonResource
             'original_price' => $this->original_price,
             'rating' => 3,
             'image' => get_full_image_url($this->image),
+            'images' => ImageResource::collection($this->whenLoaded('images')),
         ];
     }
 }

@@ -22,6 +22,7 @@ class GeneralRoutes implements RoutesInterface
             Route::get(uri: 'page/{slug}', action: [GeneralController::class, 'page']);
             Route::get(uri: 'faq-categories', action: [GeneralController::class, 'faqCategories']);
             Route::post(uri: 'contact', action: [GeneralController::class, 'contact']);
+            Route::get(uri: 'settings', action: [GeneralController::class, 'settings']);
         });
     }
 }

@@ -17,7 +17,7 @@
                                id="category{{ $category->id }}"
                                data-type="category"
                                data-id="{{ $category->id }}"
-                               data-url="{{ route('products.index', ['category' => $category->id]) }}"
+                               data-url="/products?c={{ $category->id }}"
                                data-title="{{ $category->name }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="category{{ $category->id }}">{{ $category->name }}</label>
@@ -48,7 +48,7 @@
                                class="form-check-input add-to-menu"
                                id="page{{ $page->id }}" data-type="page"
                                data-id="{{ $page->id }}"
-                               data-url="{{ route('page', $page->slug) }}"
+                               data-url="/page/{{ $page->slug }}"
                                data-title="{{ $page->name }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="page{{ $page->id }}">{{ $page->name }}</label>
@@ -59,9 +59,9 @@
                                class="form-check-input add-to-menu"
                                id="page_homepage" data-type="static"
                                data-id=""
-                               data-translation_key="homepage"
-                               data-url="{{ route('home') }}"
-                               data-title="{{ __('admin.homepage') }}">
+                               data-translation_key="home"
+                               data-url="/"
+                               data-title="{{ __('admin.home') }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="page_homepage">{{ __('admin.homepage') }}</label>
                     </div>
@@ -71,7 +71,7 @@
                                id="page_new_arrivals" data-type="static"
                                data-id=""
                                data-translation_key="new_arrivals"
-                               data-url="{{ route('products.new_arrivals') }}"
+                               data-url="/new-arrivals"
                                data-title="{{ __('admin.new_arrivals') }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="page_new_arrivals">{{ __('admin.new_arrivals') }}</label>
@@ -82,7 +82,7 @@
                                id="page_best_sellers" data-type="static"
                                data-id=""
                                data-translation_key="best_sellers"
-                               data-url="{{ route('products.best_sellers') }}"
+                               data-url="/best-sellers"
                                data-title="{{ __('admin.best_sellers') }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="page_best_sellers">{{ __('admin.best_sellers') }}</label>
@@ -93,7 +93,7 @@
                                id="page_featured_products" data-type="static"
                                data-id=""
                                data-translation_key="featured_products"
-                               data-url="{{ route('products.featured') }}"
+                               data-url="/featured"
                                data-title="{{ __('admin.featured_products') }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="page_featured_products">{{ __('admin.featured_products') }}</label>
@@ -104,7 +104,7 @@
                                id="page_contact" data-type="static"
                                data-id=""
                                data-translation_key="contact"
-                               data-url="{{ route('contact') }}"
+                               data-url="/contact"
                                data-title="{{ __('admin.contact') }}">
                         <label class="form-check-label fs-15 fw-600"
                                for="page_contact">{{ __('admin.contact') }}</label>

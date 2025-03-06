@@ -9,6 +9,7 @@ use App\{Http\Controllers\Controller,
     Http\Resources\General\FaqCategoryResource,
     Http\Resources\General\FaqResource,
     Http\Resources\General\PageResource,
+    Http\Resources\Settings\MenuResource,
     Pipelines\Settings\CityFilterPipeline,
     Pipelines\Settings\FaqCategoryFilterPipeline,
     Pipelines\Settings\PostFilterPipeline,
@@ -63,6 +64,16 @@ class GeneralController extends Controller
         app(ContactService::class)->create(data: $request->validated());
         return Response::response(
             message: __(key:'share.msg_sent_successfully'),
+        );
+    }
+
+    public function settings(): Response
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+            data: [
+                'menus' => MenuResource::collection(get_menu()),
+            ]
         );
     }
 }

@@ -7,6 +7,7 @@ use App\{Http\Controllers\Api\HomeController,
     Routes\Api\AccountRoutes,
     Routes\Api\CatalogRoutes,
     Routes\Api\BusinessRoutes,
+    Routes\Api\WishlistRoutes,
     Routes\Api\GeneralRoutes};
 
 
@@ -15,6 +16,7 @@ GeneralRoutes::registerRoutes();
 AccountRoutes::registerRoutes();
 CatalogRoutes::registerRoutes();
 BusinessRoutes::registerRoutes();
+WishlistRoutes::registerRoutes();
 
 //Route::group(attributes: ['middleware' => ['auth:sanctum']], routes: static function () {
 //
