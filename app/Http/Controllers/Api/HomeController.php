@@ -28,10 +28,10 @@ class HomeController extends Controller
                 ])),
                 'categories' => CategoryResource::collection(app(CategoryService::class)->getAll(filters: [
                     new CategoryFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value, 'is_featured' => 1])),
-                ], relations:['images'])),
+                ])),
                 'brands' => BrandResource::collection(app(BrandService::class)->getAll(filters: [
                     new BrandFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value, 'is_featured' => 1])),
-                ], relations:['images'])),
+                ])),
                 'popular_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images'])),
                 'best_sellers' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images']))
             ]
