@@ -26,4 +26,5 @@ return [
     'best_sellers' => 'Best Sellers',
     'contact' => 'Contact',
     'homepage' => 'Home',
+    'featured_products' => 'Featured Products',
 ];
