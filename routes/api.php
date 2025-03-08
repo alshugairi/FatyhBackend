@@ -8,6 +8,7 @@ use App\{Http\Controllers\Api\HomeController,
     Routes\Api\CatalogRoutes,
     Routes\Api\BusinessRoutes,
     Routes\Api\WishlistRoutes,
+    Routes\Api\CheckoutRoutes,
     Routes\Api\GeneralRoutes};
 
 
@@ -17,10 +18,7 @@ AccountRoutes::registerRoutes();
 CatalogRoutes::registerRoutes();
 BusinessRoutes::registerRoutes();
 WishlistRoutes::registerRoutes();
-
-//Route::group(attributes: ['middleware' => ['auth:sanctum']], routes: static function () {
-//
-//});
+CheckoutRoutes::registerRoutes();
 
 Route::group(attributes: ['middleware' => ['optional.auth']], routes: static function () {
     Route::get(uri: 'home', action: [HomeController::class, 'index']);
