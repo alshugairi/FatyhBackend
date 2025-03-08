@@ -86,16 +86,6 @@ class User extends Authenticatable
         'formatted_created_at'
     ];
 
-    /**
-     * @return Attribute
-     */
-    protected function password(): Attribute
-    {
-        return Attribute::make(
-            set: static fn($value) => bcrypt($value)
-        );
-    }
-
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class);

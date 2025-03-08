@@ -27,12 +27,8 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'account_type' => ['required','string','in:individual,company'],
-            'name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'nickname' => ['required', 'string', 'max:255'],
             'email' => ['required','email', Rule::unique('users', 'email')],
             'phone' => [
                 'required',
@@ -41,9 +37,6 @@ class RegisterRequest extends FormRequest
                 'regex:/^\+[0-9]+$/',
             ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'country_id' => ['required', 'exists:countries,id'],
-            'city_id' => ['required', 'exists:cities,id'],
-            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'], // Max size is 1MB
             'fcm_token' => ['nullable'],
             'status' => ['required', 'integer'],
             'type' => ['required', 'integer'],
@@ -66,7 +59,6 @@ class RegisterRequest extends FormRequest
         $this->merge([
             'type' => $this->account_type === 'individual' ? UserType::CLIENT->value : UserType::BUSINESS_OWNER->value,
             'status' => $this->status ?? 1,
-            'name' => $this->first_name. ' ' .(!empty($this->middle_name) ? $this->middle_name . ' ' : '').$this->last_name
         ]);
     }
 }

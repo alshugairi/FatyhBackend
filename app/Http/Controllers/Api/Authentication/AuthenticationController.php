@@ -12,7 +12,6 @@ use App\{Enums\StatusEnum,
     Http\Requests\Api\Authentication\SocialLoginRequest,
     Http\Requests\Api\Authentication\SocialRegisterRequest,
     Http\Resources\UserResource,
-    Mail\OTPMail,
     Models\User,
     Services\UserService,
     Services\VerificationService,
@@ -80,7 +79,11 @@ class AuthenticationController extends Controller
     public function register(RegisterRequest $request): Response
     {
         try {
-            $data = upload_file($request->validated(), 'avatar', 'users');
+            $data = $request->validated();
+            $data['account_type'] = 'individual';
+            $data['password'] = bcrypt($data['password']);
+            $data['name'] = $request->first_name. ' ' .$request->last_name;
+
             $user = $this->userService->create(data: $data);
             $code = app()->isProduction() ? $this->verificationService->generateCode() : 123456;
 
