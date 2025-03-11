@@ -27,4 +27,8 @@ return [
     'contact' => 'Contact',
     'homepage' => 'Home',
     'featured_products' => 'Featured Products',
+    'product_already_exists' => 'Product Already Exists',
+    'added_successfully' => 'Added Successfully',
+    'not_found' => 'Not Found',
+    'removed_successfully' => 'Removed Successfully',
 ];

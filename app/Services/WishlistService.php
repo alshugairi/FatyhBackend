@@ -22,4 +22,33 @@ class WishlistService extends BaseService
                     ->with('images')
                     ->paginate($paginate);
     }
+
+    public function addToWishlist(int $productId): mixed
+    {
+        $userId = auth()->id();
+
+        if ($this->repository->newQuery()->where('user_id', $userId)->where('product_id', $productId)->exists()) {
+            throw new \Exception(__('share.product_already_exists'));
+        }
+
+
+        return $this->repository->create([
+            'user_id'    => $userId,
+            'product_id' => $productId,
+        ]);
+    }
+
+    public function removeFromWishlist(int $productId): mixed
+    {
+        $userId = auth()->id();
+
+        if (!$this->repository->newQuery()->where('user_id', $userId)->where('product_id', $productId)->exists()) {
+            throw new \Exception(__('share.not_found'));
+        }
+
+        return $this->repository->newQuery()
+            ->where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->delete();
+    }
 }

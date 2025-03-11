@@ -13,6 +13,9 @@ class WishlistRoutes implements RoutesInterface
         Route::group(attributes: ['middleware' => ['auth:sanctum']], routes: static function () {
 
             Route::get(uri: 'wishlist', action: [WishlistController::class, 'index']);
+            Route::post('wishlist', [WishlistController::class, 'addToWishlist']);
+            Route::delete('wishlist', [WishlistController::class, 'removeFromWishlist']);
+
         });
     }
 }
