@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'formatted_price' => format_currency($this->sell_price),
             'original_price' => $this->original_price,
             'rating' => 3,
-            'is_wishlisted' => true,
+            'is_wishlisted' => $this->is_wishlisted,
             'image' => get_full_image_url($this->image),
             'images' => ImageResource::collection($this->whenLoaded('images')),
         ];

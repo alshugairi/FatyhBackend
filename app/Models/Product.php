@@ -160,6 +160,23 @@ class Product extends Model
         return $this->wishlist()->count();
     }
 
+    public function userWishlist()
+    {
+        return $this->hasOne(Wishlist::class)
+                    ->where('user_id', auth()->id());
+    }
+
+    public function getIsWishlistedAttribute(): bool
+    {
+        if (!auth()->check() || !request()->is('api/*')) {
+            return false;
+        }
+
+        return $this->relationLoaded('userWishlist')
+            ? $this->userWishlist !== null
+            : $this->userWishlist()->exists();
+    }
+
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);

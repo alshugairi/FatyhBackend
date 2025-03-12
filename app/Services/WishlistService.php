@@ -19,7 +19,7 @@ class WishlistService extends BaseService
                     ->join('wishlists', 'products.id', '=', 'wishlists.product_id')
                     ->where('user_id', auth()->id())
                     ->select('products.*')
-                    ->with('images')
+                    ->with(['images','userWishlist'])
                     ->paginate($paginate);
     }
 
