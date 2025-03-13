@@ -31,4 +31,6 @@ return [
     'added_successfully' => 'Added Successfully',
     'not_found' => 'Not Found',
     'removed_successfully' => 'Removed Successfully',
+    'empty_cart' => 'Empty Cart',
+    'product_not_found_in_cart' => 'Product Not Found',
 ];

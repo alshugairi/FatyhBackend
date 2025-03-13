@@ -13,6 +13,9 @@ class CheckoutRoutes implements RoutesInterface
         Route::group(attributes: ['middleware' => ['optional.auth']], routes: static function () {
 
             Route::get(uri: 'cart', action: [CartController::class, 'index']);
+            Route::post('cart', [CartController::class, 'store']);
+            Route::delete('cart', [CartController::class, 'removeFromCart']);
+            Route::get('cart/session', [CartController::class, 'getSessionId']);
         });
     }
 }
