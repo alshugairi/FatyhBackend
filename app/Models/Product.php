@@ -22,6 +22,7 @@ class Product extends Model
     public $translatable = [
         'name',
         'description',
+        'short_description',
         'meta_title',
         'meta_description',
         'meta_keywords'
@@ -33,6 +34,7 @@ class Product extends Model
         'sku',
         'slug',
         'description',
+        'short_description',
         'status',
         'is_featured',
         'barcode',
@@ -62,6 +64,7 @@ class Product extends Model
         'sku' => 'string',
         'slug' => 'string',
         'description' => 'array',
+        'short_description' => 'array',
         'status' => 'integer',
         'is_featured' => 'integer',
         'barcode' => 'string',

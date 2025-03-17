@@ -34,6 +34,9 @@ class ProductRequest extends FormRequest
             'description' => ['nullable', 'array'],
             'description.*' => ['nullable', 'string', 'max:1000'],
 
+            'short_description' => ['nullable', 'array'],
+            'short_description.*' => ['nullable', 'string', 'max:1000'],
+
             'status' => ['sometimes', 'boolean'],
             'barcode' => ['nullable', 'string', 'max:255'],
 

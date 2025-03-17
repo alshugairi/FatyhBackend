@@ -22,6 +22,7 @@ class ProductDetailsResource extends JsonResource
             'original_price' => $this->original_price,
             'rating' => 3,
             'description' => $this->description,
+            'is_wishlisted' => $this->is_wishlisted,
             'image' => get_full_image_url($this->image),
             'business' => new BusinessResource($this->business),
             'images' => ImageResource::collection($this->images),

@@ -37,11 +37,6 @@ class CartResource extends JsonResource
 //                    "image" => "/images/t1.png",
 //                    "amount" => "9.00 IQD"
 //                ],
-//                [
-//                    "description" => "10% Off First Order",
-//                    "image" => "/images/t2.png",
-//                    "amount" => "6.00 IQD"
-//                ]
             ],
             "total" => format_price($total)
         ];

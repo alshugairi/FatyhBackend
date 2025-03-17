@@ -33,6 +33,10 @@ class OrderService extends BaseService
 
     public function create(array $data): Model
     {
+        if (isset($data['billing_address']) && is_array($data['billing_address'])) {
+            unset($data['billing_address']);
+        }
+
         return DB::transaction(function () use ($data) {
             $subtotal = 0;
             $total = 0;

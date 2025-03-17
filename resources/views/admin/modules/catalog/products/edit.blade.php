@@ -27,9 +27,14 @@
                                 <div class="tab-pane fade{{ $loop->first ? ' show active' : '' }}" id="navs-top-{{ $appLanguage->id }}" role="tabpanel">
                                     <div class="row">
                                         <x-form.input type="text" name="name[{{ $appLanguage->code }}]" required="true"
-                                                      key="id-name-{{ $appLanguage->code }}" required="true"
+                                                      key="id-name-{{ $appLanguage->code }}"
                                                       value="{{ $product->getTranslation('name', $appLanguage->code) }}"
                                                       label="true" labelName="{{__('admin.name') }}"/>
+
+                                        <x-form.input type="text" name="short_description[{{ $appLanguage->code }}]"
+                                                      key="id-short_description-{{ $appLanguage->code }}"
+                                                      value="{{ $product->getTranslation('short_description', $appLanguage->code) }}"
+                                                      label="true" labelName="{{__('admin.short_description') }}"/>
 
                                         <div class="col-12 mb-3">
                                             <label class="form-label">{{ __('admin.description') }}</label>

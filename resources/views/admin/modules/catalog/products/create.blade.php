@@ -31,6 +31,12 @@
                                                       value="{{ old('name.'.$appLanguage->code) }}"
                                                       label="true" labelName="{{ __('admin.name') }}"/>
 
+                                        <x-form.input type="text" name="short_description[{{ $appLanguage->code }}]"
+                                                      key="id-short_description-{{ $appLanguage->code }}"
+                                                      value="{{ $product->getTranslation('short_description', $appLanguage->code) }}"
+                                                      value="{{ old('short_description.'.$appLanguage->code) }}"
+                                                      label="true" labelName="{{__('admin.short_description') }}"/>
+
                                         <div class="col-12 mb-3">
                                             <label class="form-label">{{ __('admin.description') }}</label>
                                             <textarea class="form-control quill-editor"

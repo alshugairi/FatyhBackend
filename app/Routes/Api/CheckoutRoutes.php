@@ -3,6 +3,7 @@
 namespace App\Routes\Api;
 
 use App\{Http\Controllers\Api\Checkout\CartController,
+    Http\Controllers\Api\Checkout\OrderController,
     Routes\Interfaces\RoutesInterface};
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ class CheckoutRoutes implements RoutesInterface
             Route::post('cart', [CartController::class, 'store']);
             Route::delete('cart', [CartController::class, 'removeFromCart']);
             Route::get('cart/session', [CartController::class, 'getSessionId']);
+            Route::post('orders', [OrderController::class, 'store']);
         });
     }
 }

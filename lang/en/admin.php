@@ -341,4 +341,5 @@ return [
     'answer' => 'Answer',
     'is_featured' => 'Is Featured?',
     'home' => 'Home',
+    'short_description' => 'Short Description',
 ];

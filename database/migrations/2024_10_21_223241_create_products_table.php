@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('sku')->unique()->index();
             $table->string('slug')->unique()->nullable()->index();
             $table->json('description')->nullable();
+            $table->json('short_description')->nullable();
             $table->integer('status')->default(0)->index();
             $table->integer('is_featured')->default(0)->index();
             $table->string('barcode')->nullable();
