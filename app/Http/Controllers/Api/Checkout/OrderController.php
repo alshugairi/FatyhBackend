@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Checkout;
 use App\{Enums\PlatformType,
     Http\Controllers\Controller,
     Http\Requests\Api\OrderRequest,
+    Http\Resources\OrderResource,
     Models\Order,
     Pipelines\Catalog\OrderFilterPipeline,
     Pipelines\Settings\SettingsFilterPipeline,
@@ -62,9 +63,20 @@ class OrderController extends Controller
         );
     }
 
-    public function invoice(Order $order)
+    public function show(int $orderId)
     {
-        $settings = app(SettingsService::class)->getAll(filters: [ new SettingsFilterPipeline(new Request(['prefix' => 'company']))]);
-        return view('admin.modules.sales.orders.invoice', get_defined_vars());
+        $order = $this->orderService->find($orderId);
+
+        if (!$order) {
+            return Response::error(
+                message: __('share.order_not_found'),
+                status: HttpStatus::HTTP_NOT_FOUND
+            );
+        }
+
+        return Response::response(
+            message: __('share.request_successfully'),
+            data: new OrderResource($order)
+        );
     }
 }

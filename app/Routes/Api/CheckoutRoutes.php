@@ -18,6 +18,7 @@ class CheckoutRoutes implements RoutesInterface
             Route::delete('cart', [CartController::class, 'removeFromCart']);
             Route::get('cart/session', [CartController::class, 'getSessionId']);
             Route::post('orders', [OrderController::class, 'store']);
+            Route::get('orders/{id}', [OrderController::class, 'show']);
         });
     }
 }
