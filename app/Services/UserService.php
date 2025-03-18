@@ -31,6 +31,9 @@ class UserService extends BaseService
      */
     public function create(array $data): Model
     {
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
         $user = $this->repository->create(data: $this->excludeItem(data: $data));
         if (isset($data['role'])) {
             $user->assignRole($data['role']);
@@ -45,6 +48,9 @@ class UserService extends BaseService
      */
     public function update(array $data, int $id): Model
     {
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
         $user = $this->repository->update(data: $this->excludeItem(data: $this->checkPassword(data: $data)), id: $id);
         if (isset($data['role'])) {
            $user->assignRole($data['role']);
