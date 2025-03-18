@@ -9,7 +9,6 @@ use App\{Enums\StatusEnum,
     Http\Resources\Catalog\ProductResource,
     Pipelines\Catalog\BrandFilterPipeline,
     Pipelines\Catalog\CategoryFilterPipeline,
-    Pipelines\Catalog\ProductFilterPipeline,
     Pipelines\Settings\PostFilterPipeline,
     Services\Catalog\BrandService,
     Services\Catalog\CategoryService,
@@ -33,12 +32,8 @@ class HomeController extends Controller
                 'brands' => BrandResource::collection(app(BrandService::class)->getAll(filters: [
                     new BrandFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value, 'is_featured' => 1])),
                 ])),
-                'popular_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [
-                    new ProductFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value])),
-                ], relations:['images','userWishlist'], limit: 4)),
-                'best_sellers' => ProductResource::collection(app(ProductService::class)->getAll(filters: [
-                    new ProductFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value]))
-                ], relations:['images','userWishlist'], limit: 4)),
+                'popular_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
+                'best_sellers' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
             ]
         );
     }
