@@ -22,4 +22,5 @@ CheckoutRoutes::registerRoutes();
 
 Route::group(attributes: ['middleware' => ['optional.auth']], routes: static function () {
     Route::get(uri: 'home', action: [HomeController::class, 'index']);
+    Route::get(uri: 'extra-home', action: [HomeController::class, 'extraHome']);
 });
