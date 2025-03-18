@@ -18,8 +18,8 @@ return new class extends Migration
             $table->json('name')->nullable();
             $table->json('description')->nullable();
             $table->json('content')->nullable();
-            $table->enum('type', ['post', 'page', 'section', 'feature', 'faq','gallery','testimonial','slider'])->default('post');
-            $table->string('slug')->nullable()->unique();
+            $table->enum('type', ['post', 'page', 'section', 'feature', 'faq','gallery','testimonial','slider'])->default('post')->index();
+            $table->string('slug')->nullable()->unique()->index();
             $table->integer('status')->default(0);
             $table->integer('position')->default(0);
             $table->string('link')->nullable();
