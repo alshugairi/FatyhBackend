@@ -35,6 +35,9 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('editor_id')->nullable();
+            $table->boolean('notify_email')->default(true);
+            $table->boolean('notify_sms')->default(false);
+            $table->boolean('notify_whatsapp')->default(false);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

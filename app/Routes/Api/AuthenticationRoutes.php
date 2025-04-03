@@ -39,6 +39,8 @@ class AuthenticationRoutes implements RoutesInterface
                 Route::get(uri: 'profile', action: [ProfileController::class, 'index']);
                 Route::post(uri: 'profile', action: [ProfileController::class, 'update']);
                 Route::delete(uri: 'delete-account', action: [AuthenticationController::class, 'deleteAccount']);
+                Route::post(uri: 'request-delete', action: [AuthenticationController::class, 'requestDelete']);
+                Route::post(uri: 'request-data', action: [AuthenticationController::class, 'requestData']);
             });
         });
     }

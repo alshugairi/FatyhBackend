@@ -43,15 +43,6 @@ class HomeController extends Controller
         return Response::response(
             message: __(key:'share.request_successfully'),
             data: [
-                'sliders' => CategoryResource::collection(app(PostService::class)->getAll(filters: [
-                    new PostFilterPipeline(request: request()->merge(['type' => 'slider'])),
-                ])),
-                'categories' => CategoryResource::collection(app(CategoryService::class)->getAll(filters: [
-                    new CategoryFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value, 'is_featured' => 1])),
-                ])),
-                'brands' => BrandResource::collection(app(BrandService::class)->getAll(filters: [
-                    new BrandFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value, 'is_featured' => 1])),
-                ])),
                 'flash_sale' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
                 'top_rated' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
             ]

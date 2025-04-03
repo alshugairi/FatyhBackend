@@ -18,6 +18,7 @@ class AccountRoutes implements RoutesInterface
             Route::get(uri: 'profile', action: [ProfileController::class, 'profile']);
             Route::post(uri: 'profile', action: [ProfileController::class, 'updateProfile']);
             Route::post(uri: 'change-password', action: [ProfileController::class, 'changePassword']);
+            Route::post(uri: 'notifications', action: [ProfileController::class, 'updateNotificationSettings']);
 
             Route::get(uri: 'questions', action: [AccountController::class, 'questions']);
             Route::get(uri: 'addresses', action: [AddressController::class, 'index']);

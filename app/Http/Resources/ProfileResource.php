@@ -27,6 +27,9 @@ class ProfileResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'verified' => $this->verified,
+            'notify_email' => $this->notify_email,
+            'notify_sms' => $this->notify_sms,
+            'notify_whatsapp' => $this->notify_whatsapp,
             'avatar' => !is_null($this->avatar) ? get_full_image_url($this->avatar) : null,
         ];
     }

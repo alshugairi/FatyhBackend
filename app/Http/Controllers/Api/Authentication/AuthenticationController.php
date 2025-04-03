@@ -300,6 +300,20 @@ class AuthenticationController extends Controller
         );
     }
 
+    public function requestDelete()
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+        );
+    }
+
+    public function requestData()
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+        );
+    }
+
     private function sendOtp($user, $code): void
     {
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Authentication;
 
 use App\{Http\Controllers\Controller,
+    Http\Requests\Api\Account\UpdateNotificationRequest,
     Http\Requests\Api\Authentication\UpdateProfileRequest,
     Http\Resources\ProfileResource,
     Http\Resources\UserResource,

@@ -43,6 +43,9 @@ class User extends Authenticatable
         'wallet',
         'avatar',
         'status',
+        'notify_email',
+        'notify_sms',
+        'notify_whatsapp'
     ];
 
     /**
@@ -79,6 +82,9 @@ class User extends Authenticatable
             'status' => 'int',
             'country_id' => 'int',
             'city_id' => 'int',
+            'notify_email' => 'bool',
+            'notify_sms' => 'bool',
+            'notify_whatsapp' => 'bool'
         ];
     }
 

@@ -22,7 +22,7 @@ class ReviewController extends Controller
             data: ReviewResource::collection(
                 $this->reviewService->index(filters: [
                     new ReviewFilterPipeline(request: request()->merge(['user_id' => auth()->id()])),
-                ], paginate: 24)
+                ], relations: ['product'], paginate: 1)
             )
         );
     }
