@@ -43,13 +43,15 @@ class AccountController extends Controller
         );
     }
 
-    public function reviews(): Response
+    public function coupons(): Response
     {
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: BrandResource::collection(app(BrandService::class)->index(filters: [
-                new BrandFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value])),
-            ]))
+            data: QuestionResource::collection(
+                $this->questionService->index(filters: [
+                    new QuestionFilterPipeline(request: request()->merge(['user_id' => auth()->id()])),
+                ], paginate: 24)
+            )
         );
     }
 }
