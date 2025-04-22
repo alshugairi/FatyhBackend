@@ -28,10 +28,13 @@ class CartController extends Controller
 
     public function store(CartRequest $request): Response
     {
-        $this->cartService->addToCart(productId: $request->product_id, quantity: $request->quantity);
+        $cart = $this->cartService->addToCart(productId: $request->product_id, quantity: $request->quantity);
 
         return Response::response(
             message: __('share.added_successfully'),
+            data: [
+                'cart_quantity' => $cart->items()->sum('quantity')
+            ]
         );
     }
 
@@ -40,7 +43,7 @@ class CartController extends Controller
         $this->cartService->removeFromCart($request->product_id);
 
         return Response::response(
-            message: __('share.removed_successfully')
+            message: __('share.removed_successfully'),
         );
     }
 

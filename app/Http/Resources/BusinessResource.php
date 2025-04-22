@@ -17,7 +17,8 @@ class BusinessResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'followers_count' => $this->followers_count
+            'image' => 'https://static.cdnlogo.com/logos/a/5/amazon.png',
+            'followers_count' => $this->followers_count,
         ];
     }
 }

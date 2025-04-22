@@ -29,6 +29,9 @@ class WishlistController extends Controller
 
         return Response::response(
             message: __('share.added_successfully'),
+            data: [
+                'wishlist_count' => $this->wishlistService->count()
+            ]
         );
     }
 
@@ -37,7 +40,10 @@ class WishlistController extends Controller
         $removed = $this->wishlistService->removeFromWishlist($request->product_id);
 
         return Response::response(
-            message: __('share.removed_successfully')
+            message: __('share.removed_successfully'),
+            data: [
+                'wishlist_count' => $this->wishlistService->count()
+            ]
         );
     }
 }

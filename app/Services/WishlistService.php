@@ -51,4 +51,11 @@ class WishlistService extends BaseService
             ->where('product_id', $productId)
             ->delete();
     }
+
+    public function count(): int
+    {
+        return $this->repository->newQuery()
+            ->where('user_id', auth()->id())
+            ->count();
+    }
 }

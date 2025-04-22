@@ -51,7 +51,7 @@ class CartService extends BaseService
             ->paginate($paginate);
     }
 
-    public function addToCart(int $productId, int $quantity = 1): mixed
+    public function addToCart(int $productId, int $quantity = 1): ?Cart
     {
         $cart = $this->getUserCart();
 
@@ -61,15 +61,16 @@ class CartService extends BaseService
 
         if ($cartItem) {
             $cartItem->increment('quantity', $quantity);
-            return $cartItem;
+        } else {
+            CartItem::create([
+                'cart_id'    => $cart->id,
+                'product_id' => $productId,
+                'quantity'   => $quantity,
+                'price'      => $this->productRepository->find($productId)->sell_price,
+            ]);
         }
 
-        return CartItem::create([
-            'cart_id'    => $cart->id,
-            'product_id' => $productId,
-            'quantity'   => $quantity,
-            'price'      => $this->productRepository->find($productId)->sell_price,
-        ]);
+        return $cart;
     }
 
     public function removeFromCart(int $productId): bool

@@ -12,6 +12,7 @@ use App\{Http\Controllers\Controller,
     Utils\HttpFoundation\HttpStatus,
     Utils\HttpFoundation\Response};
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -25,11 +26,40 @@ class VerificationController extends Controller
 
     public function verify(VerifyRequest $request): Response
     {
-        $this->userService->checkCodeAvailability(verificationCode: $request->code);
-        $this->verificationService->verifyUser(user: $request->user());
+        $user = Auth::user();
+
+        $this->userService->checkCodeAvailability(verificationCode: $request->otp);
+        $this->verificationService->verifyUser(user: $user);
 
         return Response::response(
             message: __(key:'share.success_verify_account'),
+            data: [
+                'token' => $this->userService->revokeAndCreateToken(user: $user),
+                'user' => new UserResource(resource: auth()->user()),
+            ]
+        );
+    }
+
+    public function PasswordVerify(VerifyRequest $request): Response
+    {
+        $this->userService->checkCodeAvailability(verificationCode: $request->otp);
+        $user = $this->userService->getUserByOtp(otp: $request->otp);
+
+        if (!$user) {
+            return Response::error(
+                message: __(key:'share.success_verify_account'),
+                status: HttpStatus::HTTP_NOT_FOUND
+            );
+        }
+
+        $this->verificationService->verifyUser(user: $user);
+
+        return Response::response(
+            message: __(key:'share.success_verify_account'),
+            data: [
+                'token' => $this->userService->revokeAndCreateToken(user: $user),
+                'user' => new UserResource(resource: $user),
+            ]
         );
     }
 
@@ -37,7 +67,7 @@ class VerificationController extends Controller
     {
         $user = auth()->user();
 
-        $code = app()->isProduction() ? $this->verificationService->generateCode() : 1234;
+        $code = app()->isProduction() ? $this->verificationService->generateCode() : 123456;
 
         $this->verificationService->storeCode(user: $user, code: $code);
 
@@ -56,7 +86,7 @@ class VerificationController extends Controller
             return Response::error(message: __(key:'share.user_not_found'),status: HttpStatus::HTTP_NOT_FOUND);
         }
 
-        $code = app()->isProduction() ? $this->verificationService->generateCode() : 1234;
+        $code = app()->isProduction() ? $this->verificationService->generateCode() : 123456;
 
         $this->verificationService->storeCode(user: $user, code: $code);
 
@@ -64,10 +94,6 @@ class VerificationController extends Controller
 
         return Response::response(
             message: __(key:'share.success_send_otp'),
-            data: [
-                'token' => $this->userService->revokeAndCreateToken(user: $user),
-                'user' => new UserResource(resource: $user)
-            ]
         );
     }
 

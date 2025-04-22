@@ -209,6 +209,13 @@ class UserService extends BaseService
             ->first();
     }
 
+    public function getUserByOtp(string $otp): ?Model
+    {
+        return $this->repository->getModel()->newQuery()
+            ->where(column: 'verification_code', operator: '=', value: $otp)
+            ->first();
+    }
+
     private function parseFullName(string $fullName): array
     {
         $nameParts = array_map('trim', explode(' ', $fullName));

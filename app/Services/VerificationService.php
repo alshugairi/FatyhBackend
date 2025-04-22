@@ -25,13 +25,10 @@ class VerificationService
     public function verifyUser(User $user): void
     {
         $attributes = [
-            'verified' => true,
+            'email_verified_at' => now(),
             'verification_code' => null,
+            'verification_expires_at' => null,
         ];
-
-        if ($user->email_verified_at === null) {
-            $attributes['email_verified_at'] = now();
-        }
 
         $user->forceFill(attributes: $attributes)->save();
     }
@@ -47,6 +44,6 @@ class VerificationService
      */
     public function generateCode(): int
     {
-        return random_int(min: 1000, max: 9999);
+        return random_int(min: 100000, max: 999999);
     }
 }

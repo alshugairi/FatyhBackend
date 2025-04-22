@@ -87,7 +87,7 @@ class AuthenticationController extends Controller
             $user = $this->userService->create(data: $data);
             $code = app()->isProduction() ? $this->verificationService->generateCode() : 123456;
 
-            //$this->verificationService->storeCode(user: $user, code: $code);
+            $this->verificationService->storeCode(user: $user, code: $code);
 
             //$this->sendOtp($user, $code);
 

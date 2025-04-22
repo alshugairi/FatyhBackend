@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'verified' => $this->verified,
+            'verified' => (bool)$this->email_verified_at,
             'notify_email' => $this->notify_email,
             'notify_sms' => $this->notify_sms,
             'notify_whatsapp' => $this->notify_whatsapp,

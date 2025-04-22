@@ -22,14 +22,15 @@ class AuthenticationRoutes implements RoutesInterface
 
             Route::post(uri: 'register', action: [AuthenticationController::class, 'register']);
             Route::post(uri: 'social/register', action: [AuthenticationController::class, 'socialRegister']);
-            Route::post(uri: 'resend-OTP-without-token', action: [VerificationController::class, 'resendOTPWithoutToken'])->middleware('throttle:5,1');
+            Route::post(uri: 'resend-otp-without-token', action: [VerificationController::class, 'resendOTPWithoutToken'])->middleware('throttle:5,1');
             Route::post(uri: 'check-username', action: [AuthenticationController::class, 'checkUsername']);
+            Route::post(uri: 'verify-password', action: [VerificationController::class, 'PasswordVerify']);
         });
 
         Route::group(attributes: ['middleware' => [ 'auth:sanctum']], routes: static function () {
 
             Route::post(uri: 'verify', action: [VerificationController::class, 'verify']);
-            Route::post(uri: 'resend-OTP', action: [VerificationController::class, 'resendOTP'])->middleware('throttle:5,1');
+            Route::post(uri: 'resend-otp', action: [VerificationController::class, 'resendOTP'])->middleware('throttle:5,1');
 
             Route::group(attributes: [], routes: static function () {
                 Route::post(uri: 'logout', action: [AuthenticationController::class, 'logout']);

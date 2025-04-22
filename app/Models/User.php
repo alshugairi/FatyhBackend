@@ -45,7 +45,9 @@ class User extends Authenticatable
         'status',
         'notify_email',
         'notify_sms',
-        'notify_whatsapp'
+        'notify_whatsapp',
+        'verification_code',
+        'verification_expires_at'
     ];
 
     /**
