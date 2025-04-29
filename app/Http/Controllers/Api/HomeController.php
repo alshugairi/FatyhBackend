@@ -32,8 +32,8 @@ class HomeController extends Controller
                 'brands' => BrandResource::collection(app(BrandService::class)->getAll(filters: [
                     new BrandFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value, 'is_featured' => 1])),
                 ])),
-                'popular_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
-                'best_sellers' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
+                'popular_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 4)),
+                'best_sellers' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 4)),
             ]
         );
     }
@@ -43,8 +43,8 @@ class HomeController extends Controller
         return Response::response(
             message: __(key:'share.request_successfully'),
             data: [
-                'flash_sale' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
-                'top_rated' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist'], limit: 4)),
+                'flash_sale' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 4)),
+                'top_rated' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 4)),
             ]
         );
     }

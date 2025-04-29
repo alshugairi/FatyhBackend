@@ -37,6 +37,7 @@ return new class extends Migration
             $table->foreignId('parent_product_id')->nullable()->constrained('products')->onDelete('cascade');
 
             $table->decimal('rating', 2, 1)->default(0.0)->index();
+            $table->integer('reviews_count')->default(0);
             $table->string('image')->nullable();
             $table->json('gallery_images')->nullable();
 

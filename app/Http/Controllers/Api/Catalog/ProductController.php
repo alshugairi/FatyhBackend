@@ -6,6 +6,7 @@ use App\{Enums\StatusEnum,
     Http\Controllers\Controller,
     Http\Resources\Catalog\BrandResource,
     Http\Resources\Catalog\ProductDetailsResource,
+    Http\Resources\Catalog\ProductResource,
     Pipelines\Catalog\BrandFilterPipeline,
     Services\Catalog\BrandService,
     Services\Catalog\ProductService,
@@ -18,9 +19,10 @@ class ProductController extends Controller
     public function __construct(private readonly ProductService $service)
     {
     }
+
     public function show($id): Response
     {
-        $product = $this->service->find(id: $id, relations: ['business','images']);
+        $product = $this->service->find(id: $id, relations: ['business','images', 'userWishlist', 'variants.attributeOptions.attribute']);
 
         if (!$product) {
             return Response::error(
@@ -31,7 +33,7 @@ class ProductController extends Controller
 
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: new ProductDetailsResource($product)
+            data: new ProductResource($product)
         );
     }
 }

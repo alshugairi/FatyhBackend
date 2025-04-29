@@ -23,7 +23,7 @@ class ProductVariantRequest extends FormRequest
             'attributes' => ['required', 'array', new UniqueVariantCombination($this->route('product'))],
         ];
 
-        $attributes = AttributeModel::where('status', 1)->get();
+        $attributes = AttributeModel::where('is_active', 1)->get();
 
         foreach ($attributes as $attribute) {
             $attributeRule = $attribute->is_required
@@ -38,7 +38,7 @@ class ProductVariantRequest extends FormRequest
 
     public function messages(): array
     {
-        $attributes = AttributeModel::where('status', 1)->get();
+        $attributes = AttributeModel::where('is_active', true)->get();
 
         foreach ($attributes as $attribute) {
             $messages["attributes.{$attribute->id}.option_id.required"] = __('validation.attribute_option_required', ['attribute' => $attribute->name]);
