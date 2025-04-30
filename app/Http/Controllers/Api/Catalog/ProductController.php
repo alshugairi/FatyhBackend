@@ -36,4 +36,15 @@ class ProductController extends Controller
             data: new ProductResource($product)
         );
     }
+
+    public function extraData($id)
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+            data: [
+                'similar_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 4)),
+                'top_rated_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 4)),
+            ]
+        );
+    }
 }
