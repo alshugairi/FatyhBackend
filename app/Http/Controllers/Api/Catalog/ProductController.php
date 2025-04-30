@@ -20,6 +20,14 @@ class ProductController extends Controller
     {
     }
 
+    public function index(): Response
+    {
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+            data: ProductResource::collection($this->service->index(filters: [], relations: ['business','images', 'userWishlist', 'variants.attributeOptions.attribute']))
+        );
+    }
+
     public function show($id): Response
     {
         $product = $this->service->find(id: $id, relations: ['business','images', 'userWishlist', 'variants.attributeOptions.attribute']);
