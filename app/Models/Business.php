@@ -23,9 +23,18 @@ class Business extends Model
         'phone',
         'email',
         'website',
-        'status',
-        'logo',
+        'is_active',
+        'image',
         'followers_count',
+        'reviews_count',
+        'success_orders_count',
+        'cancelled_orders_count',
+        'facebook_url',
+        'twitter_url',
+        'instagram_url',
+        'linkedin_url',
+        'youtube_url',
+        'tiktok_url',
         'creator_id',
         'editor_id'
     ];
@@ -36,8 +45,8 @@ class Business extends Model
         'phone' => 'string',
         'email' => 'string',
         'website' => 'string',
-        'status' => 'integer',
-        'logo' => 'string'
+        'is_active' => 'integer',
+        'image' => 'string'
     ];
 
     protected $appends = [

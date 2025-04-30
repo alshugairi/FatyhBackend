@@ -18,6 +18,7 @@ class BusinessRoutes implements RoutesInterface
     private static function businessRoute(): void
     {
         Route::get(uri: 'business/{id}', action: [BusinessController::class, 'home']);
+        Route::get('business/{id}/full', [BusinessController::class, 'fullData']);
         Route::get(uri: 'business/{id}/reviews', action: [BusinessController::class, 'reviews']);
     }
 }

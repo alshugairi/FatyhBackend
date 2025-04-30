@@ -18,7 +18,17 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->integer('followers_count')->default(0);
+            $table->integer('reviews_count')->default(0);
+            $table->integer('success_orders_count')->default(0);
+            $table->integer('cancelled_orders_count')->default(0);
+            $table->string('facebook_url')->nullable();
+            $table->string('twitter_url')->nullable();
+            $table->string('instagram_url')->nullable();
+            $table->string('linkedin_url')->nullable();
+            $table->string('youtube_url')->nullable();
+            $table->string('tiktok_url')->nullable();
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('editor_id')->nullable();
             $table->softDeletes();
