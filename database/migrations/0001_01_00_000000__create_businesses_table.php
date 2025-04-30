@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('linkedin_url')->nullable();
             $table->string('youtube_url')->nullable();
             $table->string('tiktok_url')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('cover')->nullable();
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('editor_id')->nullable();
             $table->softDeletes();
