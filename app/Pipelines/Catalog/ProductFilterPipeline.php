@@ -74,6 +74,9 @@ class ProductFilterPipeline
         if($this->request->filled('date_to')) {
             $theQuery->whereDate('products.created_at', '<=', $this->request->date_to);
         }
+        if($this->request->filled('b')) {
+            $theQuery->where('products.business_id', $this->request->b);
+        }
         return $theQuery;
     }
 }

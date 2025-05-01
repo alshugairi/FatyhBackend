@@ -9,6 +9,7 @@ use App\{Enums\StatusEnum,
     Http\Resources\Catalog\ProductDetailsResource,
     Http\Resources\Catalog\ProductResource,
     Pipelines\Catalog\BrandFilterPipeline,
+    Pipelines\Catalog\ProductFilterPipeline,
     Services\BusinessService,
     Services\Catalog\BrandService,
     Services\Catalog\ProductService,
@@ -27,7 +28,10 @@ class ProductController extends Controller
     {
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: ProductResource::collection($this->service->index(filters: [], relations: ['business','images', 'userWishlist', 'variants.attributeOptions.attribute']))
+            data: ProductResource::collection($this->service->index(filters: [
+                    new ProductFilterPipeline(request: request()->merge(['status' => StatusEnum::ACTIVE->value])),
+               ],
+                relations: ['business','images', 'userWishlist', 'variants.attributeOptions.attribute']))
         );
     }
 
