@@ -26,6 +26,7 @@ class CatalogRoutes implements RoutesInterface
     private static function productsRoute(): void
     {
         Route::get(uri: 'products', action: [ProductController::class, 'index']);
+        Route::get(uri: 'products/discover', action: [ProductController::class, 'discover']);
         Route::get(uri: 'products/{id}', action: [ProductController::class, 'show']);
         Route::get(uri: 'products/{id}/extra-data', action: [ProductController::class, 'extraData']);
     }

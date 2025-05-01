@@ -20,7 +20,7 @@ class BusinessController extends Controller
     {
     }
 
-    public function home(int $id): Response
+    public function show(int $id): Response
     {
         $business = $this->businessService->find(id: $id);
 
@@ -33,9 +33,7 @@ class BusinessController extends Controller
 
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: [
-                'business' => new BusinessResource($business),
-            ]
+            data: new BusinessResource($business)
         );
     }
 
