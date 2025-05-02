@@ -40,7 +40,7 @@
                             @endforeach
                         </x-layouts.language-tabs>
                        <div class="row">
-                           <x-form.switch col="col-md-4" label="true" name="status" key="input-status" value="{{ $collection->status }}" labelName="{{ trans('admin.active') }}"/>
+                           <x-form.switch col="col-md-4" label="true" name="is_active" key="input-is_active" value="{{ $collection->is_active }}" labelName="{{ trans('admin.active') }}"/>
                            <div class="clearfix"></div>
                            <div class="col-md-4 mb-3">
                                <x-form.input type="file" label="true" name="image" classes="imageInput" labelName="{{ trans('admin.image') }}"/>

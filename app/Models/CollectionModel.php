@@ -23,7 +23,8 @@ class CollectionModel extends Model
     protected $fillable = [
         'name',
         'description',
-        'status',
+        'is_active',
+        'image',
         'creator_id',
         'editor_id',
     ];
@@ -31,7 +32,8 @@ class CollectionModel extends Model
     protected $casts = [
         'name' => 'string',
         'description' => 'string',
-        'status' => 'bool',
+        'is_active' => 'bool',
+        'image' => 'string',
         'creator_id' => 'int',
         'editor_id' => 'int',
     ];

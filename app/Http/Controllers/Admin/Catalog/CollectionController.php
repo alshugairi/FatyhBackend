@@ -30,7 +30,9 @@ class CollectionController extends Controller
     public function store(CollectionRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/collections');
+        if (isset($data['image']) && $data['image'] != null) {
+            $data['image'] = upload_file($data['image'], 'catalog/collections');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.collection')]))->success();
         return redirect()->route(route: 'admin.collections.index');
@@ -44,7 +46,9 @@ class CollectionController extends Controller
     public function update(CollectionRequest $request, CollectionModel $collection): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/collections', $collection->image);
+        if (isset($data['image']) && $data['image'] != null) {
+            $data['image'] = upload_file($data['image'], 'catalog/collections', $collection->image);
+        }
         $this->service->update(data: $data, id: $collection->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.collection')]))->success();
         return redirect()->route(route: 'admin.collections.index');
