@@ -59,8 +59,8 @@ class BusinessController extends Controller
                 'business' => new BusinessResource($business),
                 'business_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 12)),
                 'categories' => CategoryResource::collection(app(CategoryService::class)->getAll(filters: [
-                    new SortFilterPipeline(sortByColumn: 'id', sortType: 'desc')
-                ],limit: 3)),
+                    new SortFilterPipeline(sortByColumn: 'id', sortType: 'asc')
+                ],limit: 4)),
                 'collections' => CollectionResource::collection(app(CollectionService::class)->getAll(filters: [
                     new SortFilterPipeline(sortByColumn: 'id', sortType: 'desc')
                 ],limit: 6)),
