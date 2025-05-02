@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\{Http\Controllers\Controller,
     Http\Resources\BusinessResource,
+    Http\Resources\Catalog\CategoryResource,
+    Http\Resources\Catalog\CollectionResource,
     Http\Resources\Catalog\ProductResource,
     Http\Resources\Catalog\ReviewResource,
     Pipelines\ReviewFilterPipeline,
+    Pipelines\SortFilterPipeline,
     Services\BusinessService,
+    Services\Catalog\CategoryService,
+    Services\Catalog\CollectionService,
     Services\Catalog\ProductService,
     Services\ReviewService,
     Utils\HttpFoundation\HttpStatus,
@@ -53,6 +58,12 @@ class BusinessController extends Controller
             data: [
                 'business' => new BusinessResource($business),
                 'business_products' => ProductResource::collection(app(ProductService::class)->getAll(filters: [], relations:['images','userWishlist','variants.attributeOptions.attribute'], limit: 12)),
+                'categories' => CategoryResource::collection(app(CategoryService::class)->getAll(filters: [
+                    new SortFilterPipeline(sortByColumn: 'id', sortType: 'desc')
+                ],limit: 3)),
+                'collections' => CollectionResource::collection(app(CollectionService::class)->getAll(filters: [
+                    new SortFilterPipeline(sortByColumn: 'id', sortType: 'desc')
+                ],limit: 6)),
             ]
         );
     }
