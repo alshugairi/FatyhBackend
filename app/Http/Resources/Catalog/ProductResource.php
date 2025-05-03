@@ -5,6 +5,7 @@ namespace App\Http\Resources\Catalog;
 use App\Http\Resources\BusinessResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Review;
 
 class ProductResource extends JsonResource
 {
@@ -25,6 +26,8 @@ class ProductResource extends JsonResource
                 2
             );
         }
+
+        $reviewCounts = $this->getReviewCountsByStar();
 
         return [
             'id' => $this->id,
@@ -48,15 +51,41 @@ class ProductResource extends JsonResource
             'items_sold_count' => 0,
             'items_sold_days' => 0,
             'lowest_price_days' => 0,
-            'image' => $this->image,
+            'image' => get_full_image_url($this->image),
             'gallery_images' => $this->gallery_images,
             'business' => new BusinessResource($this->whenLoaded('business')),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'variants' => VariantResource::collection($this->whenLoaded('variants')),
             'attributes' => $attributes,
+            'review_counts' => [
+                'star_1' => $reviewCounts[1] ?? 0,
+                'star_2' => $reviewCounts[2] ?? 0,
+                'star_3' => $reviewCounts[3] ?? 0,
+                'star_4' => $reviewCounts[4] ?? 0,
+                'star_5' => $reviewCounts[5] ?? 0,
+            ],
         ];
     }
 
+    /**
+     * Get the count of reviews for each star rating (1 to 5).
+     *
+     * @return array
+     */
+    protected function getReviewCountsByStar(): array
+    {
+        return $this->reviews
+            ->groupBy('rating')
+            ->mapWithKeys(function ($reviews, $rating) {
+                return [$rating => count($reviews)];
+            })->toArray();
+    }
+
+    /**
+     * Get attributes and options for variants.
+     *
+     * @return array
+     */
     protected function getAttributesAndOptions()
     {
         $attributes = [];
