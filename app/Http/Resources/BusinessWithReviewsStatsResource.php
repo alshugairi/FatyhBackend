@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BusinessResource extends JsonResource
+class BusinessWithReviewsStatsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,8 @@ class BusinessResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $reviewCounts = $this->getReviewCountsByStar();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -34,6 +36,22 @@ class BusinessResource extends JsonResource
             'linkedin_url' => $this->linkedin_url,
             'youtube_url' => $this->youtube_url,
             'tiktok_url' => $this->tiktok_url,
+            'review_counts' => [
+                'star_1' => $reviewCounts[1] ?? 0,
+                'star_2' => $reviewCounts[2] ?? 0,
+                'star_3' => $reviewCounts[3] ?? 0,
+                'star_4' => $reviewCounts[4] ?? 0,
+                'star_5' => $reviewCounts[5] ?? 0,
+            ],
         ];
+    }
+
+    protected function getReviewCountsByStar(): array
+    {
+        return $this->reviews
+            ->groupBy('rating')
+            ->mapWithKeys(function ($reviews, $rating) {
+                return [$rating => count($reviews)];
+            })->toArray();
     }
 }

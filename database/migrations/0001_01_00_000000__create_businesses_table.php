@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('followers_count')->default(0);
+            $table->decimal('rating', 2, 1)->default(0.0)->index();
             $table->integer('reviews_count')->default(0);
             $table->integer('success_orders_count')->default(0);
             $table->integer('cancelled_orders_count')->default(0);

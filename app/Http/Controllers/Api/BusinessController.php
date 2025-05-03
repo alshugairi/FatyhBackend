@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\{Http\Controllers\Controller,
     Http\Resources\BusinessResource,
+    Http\Resources\BusinessWithReviewsStatsResource,
     Http\Resources\Catalog\CategoryResource,
     Http\Resources\Catalog\CollectionResource,
     Http\Resources\Catalog\ProductResource,
@@ -81,14 +82,28 @@ class BusinessController extends Controller
 
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: [
-                'business' => new BusinessResource($business),
-                'reviews' => ReviewResource::collection(
+            data: ReviewResource::collection(
                     $this->reviewService->index(filters: [
                         new ReviewFilterPipeline(request: request()->merge(['business_id' => $business->id])),
                     ], paginate: 24)
-                )
-            ]
+            )
+        );
+    }
+
+    public function discover(int $id): Response
+    {
+        $business = $this->businessService->find(id: $id);
+
+        if (!$business) {
+            return Response::error(
+                message: __(key:'share.business_not_found'),
+                status: HttpStatus::HTTP_NOT_FOUND,
+            );
+        }
+
+        return Response::response(
+            message: __(key:'share.request_successfully'),
+            data: new BusinessWithReviewsStatsResource($business)
         );
     }
 }

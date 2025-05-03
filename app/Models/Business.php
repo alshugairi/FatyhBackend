@@ -27,6 +27,7 @@ class Business extends Model
         'logo',
         'cover',
         'followers_count',
+        'rating',
         'reviews_count',
         'success_orders_count',
         'cancelled_orders_count',
@@ -61,5 +62,20 @@ class Business extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function averageRating(): float
+    {
+        return $this->reviews()->avg('rating');
+    }
+
+    public function reviewsCount(): int
+    {
+        return $this->reviews()->count();
     }
 }

@@ -74,11 +74,14 @@ class ProductResource extends JsonResource
      */
     protected function getReviewCountsByStar(): array
     {
-        return $this->reviews
-            ->groupBy('rating')
-            ->mapWithKeys(function ($reviews, $rating) {
-                return [$rating => count($reviews)];
-            })->toArray();
+        if ($this->relationLoaded('reviews')) {
+            return $this->reviews
+                ->groupBy('rating')
+                ->mapWithKeys(function ($reviews, $rating) {
+                    return [$rating => count($reviews)];
+                })->toArray();
+        }
+        return [];
     }
 
     /**

@@ -20,5 +20,6 @@ class BusinessRoutes implements RoutesInterface
         Route::get(uri: 'business/{id}', action: [BusinessController::class, 'show']);
         Route::get('business/{id}/full', [BusinessController::class, 'fullData']);
         Route::get(uri: 'business/{id}/reviews', action: [BusinessController::class, 'reviews']);
+        Route::get(uri: 'business/{id}/discover', action: [BusinessController::class, 'discover']);
     }
 }
