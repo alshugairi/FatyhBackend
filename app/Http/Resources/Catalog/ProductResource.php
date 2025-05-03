@@ -6,6 +6,7 @@ use App\Http\Resources\BusinessResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Review;
+use Illuminate\Support\Facades\DB;
 
 class ProductResource extends JsonResource
 {
@@ -48,6 +49,7 @@ class ProductResource extends JsonResource
             'is_wishlisted' => $this->is_wishlisted,
             'favourites_count' => $this->favourites_count,
             'created_at' => $this->formatted_created_at,
+            'created_at_human' => $this->created_at->diffForHumans(),
             'items_sold_count' => 0,
             'items_sold_days' => 0,
             'lowest_price_days' => 0,
@@ -64,6 +66,8 @@ class ProductResource extends JsonResource
                 'star_4' => $reviewCounts[4] ?? 0,
                 'star_5' => $reviewCounts[5] ?? 0,
             ],
+            'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
+            'questions' => QuestionResource::collection($this->whenLoaded('questions')),
         ];
     }
 
@@ -75,11 +79,11 @@ class ProductResource extends JsonResource
     protected function getReviewCountsByStar(): array
     {
         if ($this->relationLoaded('reviews')) {
-            return $this->reviews
+            return Review::where('product_id', $this->id)
                 ->groupBy('rating')
-                ->mapWithKeys(function ($reviews, $rating) {
-                    return [$rating => count($reviews)];
-                })->toArray();
+                ->select('rating', DB::raw('count(*) as count'))
+                ->pluck('count', 'rating')
+                ->toArray();
         }
         return [];
     }

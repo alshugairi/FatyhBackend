@@ -37,7 +37,18 @@ class ProductController extends Controller
 
     public function show($id): Response
     {
-        $product = $this->service->find(id: $id, relations: ['business','images', 'userWishlist', 'variants.attributeOptions.attribute']);
+        $product = $this->service->find(id: $id, relations: [
+            'business',
+            'images',
+            'userWishlist',
+            'variants.attributeOptions.attribute',
+            'reviews' => function ($query) {
+                $query->orderBy('id', 'desc')->take(6);
+            },
+            'questions' => function ($query) {
+                $query->orderBy('id', 'desc')->take(8);
+            },
+        ]);
 
         if (!$product) {
             return Response::error(

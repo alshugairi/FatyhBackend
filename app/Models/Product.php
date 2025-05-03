@@ -9,6 +9,8 @@ use Illuminate\{Database\Eloquent\Casts\Attribute,
     Database\Eloquent\Model,
     Database\Eloquent\Relations\BelongsTo,
     Database\Eloquent\Builder,
+    Database\Eloquent\Relations\HasMany,
+    Database\Eloquent\Relations\HasOne,
     Database\Eloquent\SoftDeletes,
     Support\Facades\DB};
 use Spatie\Translatable\HasTranslations;
@@ -138,7 +140,7 @@ class Product extends Model
         return $this->hasMany(ProductVideo::class);
     }
 
-    public function reviews()
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
     }
@@ -148,22 +150,27 @@ class Product extends Model
         return $this->reviews()->avg('rating');
     }
 
-    public function reviewsCount()
+    public function reviewsCount(): int
     {
         return $this->reviews()->count();
     }
 
-    public function wishlist()
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function wishlist(): HasMany
     {
         return $this->hasMany(Wishlist::class);
     }
 
-    public function wishlistCount()
+    public function wishlistCount(): int
     {
         return $this->wishlist()->count();
     }
 
-    public function userWishlist()
+    public function userWishlist(): HasOne
     {
         return $this->hasOne(Wishlist::class)
                     ->where('user_id', auth()->id());
