@@ -56,6 +56,7 @@ class ProductResource extends JsonResource
             'image' => get_full_image_url($this->image),
             'gallery_images' => $this->gallery_images,
             'business' => new BusinessResource($this->whenLoaded('business')),
+            'category' => new CategoryResource($this->whenLoaded('category')),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'variants' => VariantResource::collection($this->whenLoaded('variants')),
             'attributes' => $attributes,

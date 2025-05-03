@@ -40,6 +40,7 @@ class ProductController extends Controller
         $product = $this->service->find(id: $id, relations: [
             'business',
             'images',
+            'category',
             'userWishlist',
             'variants.attributeOptions.attribute',
             'reviews' => function ($query) {
