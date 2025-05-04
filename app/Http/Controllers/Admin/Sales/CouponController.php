@@ -42,7 +42,9 @@ class CouponController extends Controller
     public function store(CouponRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'sales/coupons');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'sales/coupons');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.coupon')]))->success();
         return redirect()->route(route: 'admin.coupons.index');
@@ -65,7 +67,9 @@ class CouponController extends Controller
     public function update(CouponRequest $request, Coupon $coupon): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'sales/coupons', $coupon->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'sales/coupons', $coupon->image);
+        }
         $this->service->update(data: $data, id: $coupon->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.coupon')]))->success();
         return redirect()->route(route: 'admin.coupons.index');

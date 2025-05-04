@@ -39,7 +39,9 @@ class TaxController extends Controller
     public function store(TaxRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'sales/taxes');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'sales/taxes');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.tax')]))->success();
         return redirect()->route(route: 'admin.taxes.index');
@@ -62,7 +64,9 @@ class TaxController extends Controller
     public function update(TaxRequest $request, Tax $tax): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'sales/taxes', $tax->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'sales/taxes', $tax->image);
+        }
         $this->service->update(data: $data, id: $tax->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.tax')]))->success();
         return redirect()->route(route: 'admin.taxes.index');

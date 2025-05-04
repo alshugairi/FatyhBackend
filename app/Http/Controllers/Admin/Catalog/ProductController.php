@@ -10,6 +10,7 @@ use App\{Http\Controllers\Controller,
     Http\Resources\Catalog\ProductResource,
     Models\AttributeModel,
     Models\Brand,
+    Models\Business,
     Models\Category,
     Models\Product,
     Pipelines\Catalog\ProductFilterPipeline,
@@ -24,7 +25,8 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $service,
-                                private readonly ProductVideoService $productVideoService)
+                                private readonly ProductVideoService $productVideoService,
+                                private readonly ProductImageService $productImageService)
     {
     }
 
@@ -43,10 +45,13 @@ class ProductController extends Controller
     public function store(ProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        $data['business_id'] = Business::first()->id;
+        $product = $this->service->create(data: $data);
+
         if (isset($data['image'])) {
             $data['image'] = upload_file($data['image'], 'catalog/products');
+            $this->productImageService->create(['product_id' => $product->id, 'image_path' => $data['image'], 'position' => 1]);
         }
-        $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.product')]))->success();
         return redirect()->route(route: 'admin.products.index');
     }

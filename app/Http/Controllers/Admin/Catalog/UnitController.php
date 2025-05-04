@@ -42,7 +42,9 @@ class UnitController extends Controller
     public function store(UnitRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/units');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'catalog/units');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.unit')]))->success();
         return redirect()->route(route: 'admin.units.index');
@@ -65,7 +67,9 @@ class UnitController extends Controller
     public function update(UnitRequest $request, Unit $unit): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'catalog/units', $unit->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'catalog/units', $unit->image);
+        }
         $this->service->update(data: $data, id: $unit->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.unit')]))->success();
         return redirect()->route(route: 'admin.units.index');

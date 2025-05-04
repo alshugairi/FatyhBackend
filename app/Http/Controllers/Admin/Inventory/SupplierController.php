@@ -42,7 +42,9 @@ class SupplierController extends Controller
     public function store(SupplierRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'inventory/suppliers');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'inventory/suppliers');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.supplier')]))->success();
         return redirect()->route(route: 'admin.suppliers.index');
@@ -65,7 +67,9 @@ class SupplierController extends Controller
     public function update(SupplierRequest $request, Supplier $supplier): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'inventory/suppliers', $supplier->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'inventory/suppliers', $supplier->image);
+        }
         $this->service->update(data: $data, id: $supplier->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.supplier')]))->success();
         return redirect()->route(route: 'admin.suppliers.index');

@@ -26,6 +26,7 @@ class AttributeRequest extends FormRequest
         return [
             'name' => ['required', 'array'],
             'name.*' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'string', 'in:select,color,size'],
         ];
     }
 }

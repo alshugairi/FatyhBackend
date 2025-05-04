@@ -45,7 +45,9 @@ class PurchaseController extends Controller
     public function store(PurchaseRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'inventory/purchases');
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'inventory/purchases');
+        }
         $this->service->create(data: $data);
         flash(__('admin.created_successfully', ['module' => __('admin.purchase')]))->success();
         return redirect()->route(route: 'admin.purchases.index');
@@ -70,7 +72,9 @@ class PurchaseController extends Controller
     public function update(PurchaseRequest $request, Purchase $purchase): RedirectResponse
     {
         $data = $request->validated();
-        $data = upload_file($data, 'image', 'inventory/purchases', $purchase->image);
+        if (isset($data['image'])) {
+            $data['image'] = upload_file($data['image'], 'inventory/purchases', $purchase->image);
+        }
         $this->service->update(data: $data, id: $purchase->id);
         flash(__('admin.updated_successfully', ['module' => __('admin.purchase')]))->success();
         return redirect()->route(route: 'admin.purchases.index');

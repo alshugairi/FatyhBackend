@@ -1,5 +1,11 @@
 @extends('admin.layouts.app')
-
+@php
+    $types = [
+        'color' => __('admin.color'),
+        'size' => __('admin.size'),
+        'select' => __('admin.select'),
+    ];
+@endphp
 @section('content')
     <form action="{{ route('admin.attributes.store') }}" method="post" enctype="multipart/form-data" id="submitForm">
         @method('post')
@@ -34,6 +40,7 @@
                                 </div>
                             @endforeach
                         </x-layouts.language-tabs>
+                        <x-form.select col="col-md-4" name="type" :options="$types" labelName="{{ trans('admin.type') }}"/>
                     </div>
                 </div>
             </div>
