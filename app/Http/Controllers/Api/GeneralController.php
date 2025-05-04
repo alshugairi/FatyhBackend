@@ -72,7 +72,8 @@ class GeneralController extends Controller
         return Response::response(
             message: __(key:'share.request_successfully'),
             data: [
-                'menus' => MenuResource::collection(get_menu()),
+                'primary_menu' => new MenuResource(get_menu()->where('position', 'primary')->first()),
+                'footer_menus' => MenuResource::collection(get_menu()->where('position', 'footer')->take(3)),
             ]
         );
     }
