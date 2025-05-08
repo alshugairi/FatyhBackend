@@ -1,12 +1,25 @@
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Admin | Login Page</title>
+    <title>{{ get_setting('company_name', 'Fatyh') }} | @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ get_setting('theme_favicon') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
+    <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/overlayscrollbars.min.css">
-    <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
     @if(app()->getLocale() === 'ar')
         <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/adminlte.rtl.css">
         <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/rtl.css">
@@ -15,93 +28,81 @@
     @endif
     <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/custom.css">
 </head>
+<body class="login-body">
+<div class="container-login">
+    <div class="left-panel position-relative">
 
-<body>
-    <div class="login--page w-100">
-        <div class="row min-vh-100 p-0 m-0">
-            <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center text-white" style="background:#1F2D3A;">
-                <div class="text-center">
-                    <img src="{{ asset('public/assets/admin') }}/images/logo.png" alt="Logo" class="img-fluid mb-4 logo">
-                    <h1>{{ __('admin.login_welcome_msg') }}</h1>
-                    <p>{{ __('admin.login_description') }}</p>
-                </div>
-            </div>
+        <div class="position-absolute hand-icon">
+            <img class="w-100" src="{{ asset('public/assets/admin/images/hand.png') }}" alt="Hand Icon">
+        </div>
 
-            <div class="col-md-6 d-flex align-items-center justify-content-center bg-light position-relative">
-                <div class="language-switcher position-absolute" style="top: 20px; right: 20px;">
-                    <select class="form-select form-select-sm" onchange="switchLanguage(this)">
-                        <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }} data-href="{{ route('language.switch', 'en') }}">{{ __('admin.english') }}</option>
-                        <option value="ar" {{ app()->getLocale() === 'ar' ? 'selected' : '' }} data-href="{{ route('language.switch', 'ar') }}">{{ __('admin.arabic') }}</option>
-                    </select>
-                </div>
-                <div class="login-box w-100">
-                    @include('flash::message')
-                    @if(session()->has('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                    <div class="px-180">
-                        <h3 class="login-box-msg fw-bold">{{ __('admin.signin') }}</h3>
-
-                        <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('admin.authenticate') }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="email" class="form-label">{{ __('admin.email') }}</label>
-                                <input id="email" type="email" class="form-control form-control-lg  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="">
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                             <strong>{{ $message }}</strong>
-                         </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">{{ __('admin.password') }}</label>
-                                    {{--                        <a href="#">--}}
-                                    {{--                            <small>{{ __('admin.forgot_password') }}</small>--}}
-                                    {{--                        </a>--}}
-                                </div>
-                                <div class="input-group input-group-merge">
-                                    <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required
-                                           placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                           aria-describedby="password">
-                                    {{--                            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>--}}
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                     <strong>{{ $message }}</strong>
-                                 </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                                    <label class="form-check-label" for="remember-me"> {{ __('admin.remember_me') }} </label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <button class="btn btn-primary-light btn-lg d-grid w-100" type="submit">{{ __('admin.login') }}</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="bottom-0 position-absolute mb-5 w-100 p-2">
+            <h4 class="text-white">
+                Partnership for <br> Business Growth
+            </h4>
+            <small class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun.</small>
         </div>
     </div>
-
-    <script src="{{ asset('public/assets/admin') }}/js/overlayscrollbars.browser.es6.min.js"></script>
-    <script src="{{ asset('public/assets/admin') }}/js/popper.min.js"></script>
-    <script src="{{ asset('public/assets/admin') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('public/assets/admin') }}/js/adminlte.js"></script>
-    <script>
-        function switchLanguage(select) {
-            const selectedOption = select.options[select.selectedIndex];
-            const href = selectedOption.getAttribute('data-href');
-            if (href) {
-                window.location.href = href;
-            }
-        }
-    </script>
+    <div class="right-panel">
+        <span class="close-btn">×</span>
+        <div class="mt-5 text-center">
+            <img src="{{ asset('public/assets/admin/images/user.png') }}" alt="User Icon" class="user-icon">
+        </div>
+        <h2 class="h4 text-center">Sign In Your Account</h2>
+        <div>
+            @include('flash::message')
+            @if(session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+        <form method="POST" action="{{ route('admin.authenticate') }}">
+            @csrf
+            <div class="mb-3">
+                <div class="input-group mb-2 mr-sm-2 custom-input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="{{ __('admin.email') }}"
+                           name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                </div>
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <div class="input-group mb-2 mr-sm-2 custom-input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                    </div>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="{{ __('admin.password') }}"
+                           name="password" required>
+                </div>
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="mb-3 d-flex justify-content-between">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">{{ __('admin.remember_me') }}</label>
+                </div>
+                <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary w-100 mb-3 border-0">{{ __('admin.login') }}</button>
+            <p class="mb-0 text-center mt-3 fw-bold text-gray">Don't have an account? <a href="#" class="text-decoration-none- text-primary">Sign Up</a></p>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
