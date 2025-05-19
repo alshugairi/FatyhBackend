@@ -36,4 +36,5 @@ return [
     'order_not_found' => 'Order Not Found',
     'email_added_successfully' => 'Email Added Successfully',
     'coupon_not_found' => 'Coupon Not Found',
+    'quantity_updated' => 'Quantity Updated',
 ];
