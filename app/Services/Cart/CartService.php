@@ -93,4 +93,45 @@ class CartService extends BaseService
 
         return true;
     }
+
+    public function increaseQuantity(int $productId): ?Cart
+    {
+        $cart = $this->getUserCart();
+
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $productId)
+            ->first();
+
+        if (!$cartItem) {
+            throw new \Exception(__('share.not_found'));
+        }
+
+        $cartItem->increment('quantity', 1);
+
+        return $cart;
+    }
+
+    public function decreaseQuantity(int $productId): ?Cart
+    {
+        $cart = $this->getUserCart();
+
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $productId)
+            ->first();
+
+        if (!$cartItem) {
+            throw new \Exception(__('share.not_found'));
+        }
+
+        if ($cartItem->quantity <= 1) {
+            $cartItem->delete();
+            if ($cart->items()->count() === 0) {
+                $cart->delete();
+            }
+        } else {
+            $cartItem->decrement('quantity', 1);
+        }
+
+        return $cart;
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Checkout;
 use App\{Http\Controllers\Controller,
     Http\Requests\Api\CartRequest,
     Http\Requests\Api\DeleteFromCartRequest,
+    Http\Requests\Api\UpdateCartQuantityRequest,
     Http\Resources\CartResource,
     Services\Cart\CartService,
     Utils\HttpFoundation\Response};
@@ -44,6 +45,30 @@ class CartController extends Controller
 
         return Response::response(
             message: __('share.removed_successfully'),
+        );
+    }
+
+    public function increaseQuantity(UpdateCartQuantityRequest $request): Response
+    {
+        $cart = $this->cartService->increaseQuantity($request->product_id);
+
+        return Response::response(
+            message: __('share.quantity_updated'),
+            data: [
+                'cart_quantity' => $cart->items()->sum('quantity')
+            ]
+        );
+    }
+
+    public function decreaseQuantity(UpdateCartQuantityRequest $request): Response
+    {
+        $cart = $this->cartService->decreaseQuantity($request->product_id);
+
+        return Response::response(
+            message: __('share.quantity_updated'),
+            data: [
+                'cart_quantity' => $cart->items()->sum('quantity')
+            ]
         );
     }
 

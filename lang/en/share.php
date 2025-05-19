@@ -35,4 +35,5 @@ return [
     'product_not_found_in_cart' => 'Product Not Found',
     'order_not_found' => 'Order Not Found',
     'email_added_successfully' => 'Email Added Successfully',
+    'coupon_not_found' => 'Coupon Not Found',
 ];
