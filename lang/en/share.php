@@ -37,4 +37,5 @@ return [
     'email_added_successfully' => 'Email Added Successfully',
     'coupon_not_found' => 'Coupon Not Found',
     'quantity_updated' => 'Quantity Updated',
+    'question_added_successfully' => 'Question Added Successfully',
 ];

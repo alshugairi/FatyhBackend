@@ -39,6 +39,10 @@ class CatalogRoutes implements RoutesInterface
     private static function questionsRoute(): void
     {
         Route::get(uri: 'products/{id}/questions', action: [QuestionController::class, 'index']);
+
+        Route::group(attributes: ['middleware' => ['auth:sanctum']], routes: static function () {
+            Route::post(uri: 'products/{id}/questions', action: [QuestionController::class, 'store']);
+        });
     }
 
     private static function categoriesRoute(): void
