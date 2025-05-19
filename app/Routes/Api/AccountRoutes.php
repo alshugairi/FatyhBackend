@@ -23,6 +23,7 @@ class AccountRoutes implements RoutesInterface
             Route::get(uri: 'questions', action: [AccountController::class, 'questions']);
             Route::get(uri: 'coupons', action: [AccountController::class, 'coupons']);
             Route::get(uri: 'addresses', action: [AddressController::class, 'index']);
+            Route::post(uri: 'addresses', action: [AddressController::class, 'store']);
             Route::get(uri: 'reviews', action: [ReviewController::class, 'index']);
         });
     }

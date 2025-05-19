@@ -38,4 +38,5 @@ return [
     'coupon_not_found' => 'Coupon Not Found',
     'quantity_updated' => 'Quantity Updated',
     'question_added_successfully' => 'Question Added Successfully',
+    'address_added_successfully' => 'Address Added Successfully',
 ];

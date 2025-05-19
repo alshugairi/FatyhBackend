@@ -27,13 +27,13 @@ class AddressRequest extends FormRequest
             'full_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:20', 'unique:addresses,phone,' . $this->route('address')?->id],
             'email' => ['nullable', 'string', 'email', 'max:255'],
-            'address_type' => ['required', 'in:billing,shipping'],
+            //'address_type' => ['required', 'in:billing,shipping'],
             'country_id' => ['required', 'exists:countries,id'],
             'city_id' => ['required', 'exists:cities,id'],
             'address_line_1' => ['required', 'string', 'max:255'],
             'address_line_2' => ['nullable', 'string', 'max:255'],
             'postal_code' => ['nullable', 'string', 'max:20'],
-            'is_default' => ['nullable', 'boolean'],
+            'is_default' => ['nullable', 'boolean', 'in:0,1'],
         ];
     }
 

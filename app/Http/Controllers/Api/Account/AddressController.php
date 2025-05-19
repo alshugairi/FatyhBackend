@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Account;
 
 use App\{Http\Controllers\Controller,
+    Http\Requests\Api\Account\AddressRequest,
     Http\Resources\AddressResource,
     Pipelines\AddressFilterPipeline,
     Services\AddressService,
@@ -24,6 +25,16 @@ class AddressController extends Controller
                     new AddressFilterPipeline(request: request()->merge(['user_id' => auth()->id()])),
                 ], paginate: 24)
             )
+        );
+    }
+
+    public function store(AddressRequest $request): Response
+    {
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+        $this->addressService->create(data: $data);
+        return Response::response(
+            message: __(key:'share.address_added_successfully'),
         );
     }
 }
