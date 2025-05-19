@@ -16,7 +16,10 @@ class CouponService extends BaseService
         parent::__construct($repository);
     }
 
-    //
+    public function getByCode(string $code): ?Model
+    {
+        return $this->repository->getModel()->where(['code' => $code])->first();
+    }
 
     public function list(array $filters = [], array $relations = [], array $withCount = []): JsonResponse
     {

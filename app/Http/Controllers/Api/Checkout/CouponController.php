@@ -15,9 +15,9 @@ class CouponController extends Controller
     {
     }
 
-    public function show($id)
+    public function getByCode($code)
     {
-        $coupon = $this->couponService->find(id: $id);
+        $coupon = $this->couponService->getByCode(code: $code);
 
         if (!$coupon) {
             return Response::error(

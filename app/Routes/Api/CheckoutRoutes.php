@@ -22,7 +22,7 @@ class CheckoutRoutes implements RoutesInterface
             Route::post('cart/decrease', [CartController::class, 'decreaseQuantity']);
             Route::post('orders', [OrderController::class, 'store']);
             Route::get('orders/{id}', [OrderController::class, 'show']);
-            Route::get('coupons/{id}', [CouponController::class, 'show']);
+            Route::get('coupons/{code}', [CouponController::class, 'getByCode']);
         });
     }
 }
