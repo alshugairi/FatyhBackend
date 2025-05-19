@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\{Http\Controllers\Controller, Http\Requests\Admin\Auth\LoginRequest};
+use App\{Http\Controllers\Controller,
+    Http\Requests\Admin\Auth\LoginRequest,
+    Http\Requests\Admin\Auth\RegisterCompanyRequest,
+    Http\Requests\Admin\Auth\RegisterIndividualRequest};
 use Illuminate\{Contracts\View\View, Http\JsonResponse, Http\RedirectResponse, Http\Request, Support\Facades\Auth};
 
 class AuthController extends Controller
@@ -40,5 +43,20 @@ class AuthController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect()->route('admin.login');
+    }
+
+    public function register(): View
+    {
+        return view('admin.modules.auth.register', get_defined_vars());
+    }
+
+    public function storeIndividual(RegisterIndividualRequest $request): RedirectResponse
+    {
+
+    }
+
+    public function storeCompany(RegisterCompanyRequest $request): RedirectResponse
+    {
+
     }
 }

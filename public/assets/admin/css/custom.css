@@ -1011,6 +1011,12 @@ body{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     display: flex;
 }
+.container-register{
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+}
 .left-panel {
     flex: 0 0 40%;
     background: linear-gradient(180deg, rgba(40, 53, 106, 0.68) 0%, #28356A 51.79%, #28356A 100%);
@@ -1022,6 +1028,9 @@ body{
     justify-content: center;
     text-align: center;
 }
+.container-register .left-panel{
+    flex: 0 0 23%;
+}
 .right-panel {
     flex: 0 0 60%;
     background: #fff;
@@ -1030,6 +1039,9 @@ body{
     /*display: flex;*/
     flex-direction: column;
     /*align-items: center;*/
+}
+.container-register .right-panel{
+    flex: 0 0 78%;
 }
 .right-panel .close-btn {
     position: absolute;
@@ -1050,7 +1062,16 @@ body{
 }
 .hand-icon{
     width: 100%;
+    left: 0;
 }
+.container-register .hand-icon{
+    width: 100%;
+    left: 0;
+    top: 40%;
+}
+.left-0{ left: 0}
+
+
 @media (max-width: 767.98px) {
     .px-180 {
         padding-left: 0;

@@ -344,4 +344,8 @@ return [
     'short_description' => 'Short Description',
     'color' => 'Color',
     'size' => 'Size',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'middle_name' => 'Middle Name',
+    'nickname' => 'Nickname',
 ];

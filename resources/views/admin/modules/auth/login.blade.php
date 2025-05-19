@@ -29,80 +29,83 @@
     <link rel="stylesheet" href="{{ asset('public/assets/admin') }}/css/custom.css">
 </head>
 <body class="login-body">
-<div class="container-login">
-    <div class="left-panel position-relative">
 
-        <div class="position-absolute hand-icon">
-            <img class="w-100" src="{{ asset('public/assets/admin/images/hand.png') }}" alt="Hand Icon">
-        </div>
+    <div class="container-login">
+        <div class="left-panel position-relative">
+            <div class="position-absolute hand-icon">
+                <img class="w-100" src="{{ asset('public/assets/admin/images/hand.png') }}" alt="Hand Icon">
+            </div>
 
-        <div class="bottom-0 position-absolute mb-5 w-100 p-2">
-            <h4 class="text-white">
-                Partnership for <br> Business Growth
-            </h4>
-            <small class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun.</small>
+            <div class="bottom-0 left-0 position-absolute mb-5 w-100 p-2">
+                <h4 class="text-white">
+                    Partnership for <br> Business Growth
+                </h4>
+                <small class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun.</small>
+            </div>
         </div>
-    </div>
-    <div class="right-panel">
-        <span class="close-btn">×</span>
-        <div class="mt-5 text-center">
-            <img src="{{ asset('public/assets/admin/images/user.png') }}" alt="User Icon" class="user-icon">
-        </div>
-        <h2 class="h4 text-center">Sign In Your Account</h2>
-        <div>
-            @include('flash::message')
-            @if(session()->has('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-        </div>
-        <form method="POST" action="{{ route('admin.authenticate') }}">
-            @csrf
-            <div class="mb-3">
-                <div class="input-group mb-2 mr-sm-2 custom-input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fa fa-user"></i>
-                        </div>
+        <div class="right-panel">
+            <span class="close-btn">×</span>
+            <div class="mt-5 text-center">
+                <img src="{{ asset('public/assets/admin/images/user.png') }}" alt="User Icon" class="user-icon">
+            </div>
+            <h2 class="h4 text-center">Sign In Your Account</h2>
+            <div>
+                @include('flash::message')
+                @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
-                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="{{ __('admin.email') }}"
-                           name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                @endif
+            </div>
+            <form method="POST" action="{{ route('admin.authenticate') }}">
+                @csrf
+                <div class="mb-3">
+                    <div class="input-group mb-2 mr-sm-2 custom-input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="{{ __('admin.email') }}"
+                               name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    </div>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-                @error('email')
+                <div class="mb-3">
+                    <div class="input-group mb-2 mr-sm-2 custom-input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="{{ __('admin.password') }}"
+                               name="password" required>
+                    </div>
+                    @error('password')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <div class="input-group mb-2 mr-sm-2 custom-input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fa fa-lock"></i>
-                        </div>
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="mb-3 d-flex justify-content-between">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">{{ __('admin.remember_me') }}</label>
                     </div>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="{{ __('admin.password') }}"
-                           name="password" required>
+                    <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
                 </div>
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="mb-3 d-flex justify-content-between">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">{{ __('admin.remember_me') }}</label>
-                </div>
-                <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
-            </div>
-            <button type="submit" class="btn btn-lg btn-primary w-100 mb-3 border-0">{{ __('admin.login') }}</button>
-            <p class="mb-0 text-center mt-3 fw-bold text-gray">Don't have an account? <a href="#" class="text-decoration-none- text-primary">Sign Up</a></p>
-        </form>
+                <button type="submit" class="btn btn-lg btn-primary w-100 mb-3 border-0">{{ __('admin.login') }}</button>
+                <p class="mb-0 text-center mt-3 fw-bold text-gray">
+                    Don't have an account?
+                    <a href="{{ route('admin.register') }}" class="text-decoration-none- text-primary">Sign Up</a>
+                </p>
+            </form>
+        </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
