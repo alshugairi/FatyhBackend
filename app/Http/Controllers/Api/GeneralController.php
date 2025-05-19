@@ -27,7 +27,7 @@ class GeneralController extends Controller
     {
         return Response::response(
             message: __(key:'share.request_successfully'),
-            data: CountryResource::collection(app(CountryService::class)->getAll())
+            data: CountryResource::collection(app(CountryService::class)->getAll(relations: ['cities']))
         );
     }
 

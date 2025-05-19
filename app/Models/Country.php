@@ -8,6 +8,7 @@ use Illuminate\{Database\Eloquent\Casts\Attribute,
     Database\Eloquent\Factories\HasFactory,
     Database\Eloquent\Model,
     Database\Eloquent\Relations\BelongsTo,
+    Database\Eloquent\Relations\HasMany,
     Database\Eloquent\SoftDeletes};
 use Spatie\Translatable\HasTranslations;
 
@@ -58,6 +59,11 @@ class Country extends Model
     public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
+    }
+
+    public function cities(): HasMany
+    {
+        return $this->hasMany(City::class);
     }
 
     /**
