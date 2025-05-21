@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('business_id')->nullable()->index()->constrained('businesses')->nullOnDelete();
             $table->string('name');
             $table->string('first_name')->nullable();
+            $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('nickname')->nullable();
             $table->integer('type')->default(UserType::CLIENT->value)->index();

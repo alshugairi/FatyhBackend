@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\{Http\Controllers\Controller,
+use App\{Enums\UserType,
+    Http\Controllers\Controller,
     Http\Requests\Admin\Auth\LoginRequest,
     Http\Requests\Admin\Auth\RegisterCompanyRequest,
-    Http\Requests\Admin\Auth\RegisterIndividualRequest};
+    Http\Requests\Admin\Auth\RegisterIndividualRequest,
+    Services\BusinessService,
+    Services\UserService};
 use Illuminate\{Contracts\View\View, Http\JsonResponse, Http\RedirectResponse, Http\Request, Support\Facades\Auth};
 
 class AuthController extends Controller
 {
-    /**
-     * @return View
-     */
+    public function __construct(private readonly UserService $userService,
+                                private readonly BusinessService $businessService)
+    {
+    }
+
     public function login(): View
     {
         return view('admin.modules.auth.login', get_defined_vars());
     }
 
-    /**
-     * @param LoginRequest $request
-     * @return RedirectResponse
-     */
     public function authenticate(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->validated();
@@ -34,9 +35,6 @@ class AuthController extends Controller
         return back()->withErrors(['email' => __('auth.failed')])->withInput();
     }
 
-    /**
-     * @return RedirectResponse
-     */
     public function logout(): RedirectResponse
     {
         Auth::logout();
@@ -52,7 +50,16 @@ class AuthController extends Controller
 
     public function storeIndividual(RegisterIndividualRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+        $data['name'] = $data['first_name'] . ' ' . $data['middle_name']. ' ' . $data['last_name'];
 
+        $business = $this->businessService->create(data: $data);
+        $user = $this->userService->create(data: $data);
+
+        $this->userService->update(data: ['business_id' => $business->id], id: $user->id);
+        flash(__('admin.created_successfully', ['module' => __('admin.seller')]))->success();
+        auth()->login($user);
+        return redirect()->route(route: 'admin.admins.index');
     }
 
     public function storeCompany(RegisterCompanyRequest $request): RedirectResponse

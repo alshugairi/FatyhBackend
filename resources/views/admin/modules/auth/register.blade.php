@@ -64,7 +64,7 @@
         </div>
 
         <div id="companyWizard" class="d-none">
-            @include('admin.partial.register.company')
+{{--            @include('admin.partial.register.company')--}}
         </div>
 
         <div class="clearfix"></div>

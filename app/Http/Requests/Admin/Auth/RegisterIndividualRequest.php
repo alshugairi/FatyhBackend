@@ -28,16 +28,12 @@ class RegisterIndividualRequest extends FormRequest
     {
         return [
             'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'nickname' => ['required', 'string', 'max:255'],
             'email' => ['required','email', Rule::unique('users', 'email')],
-            'phone' => [
-                'required',
-                'numeric',
-                Rule::unique('users', 'phone'),
-                'regex:/^\+[0-9]+$/',
-            ],
+            'phone' => ['required','numeric',Rule::unique('users', 'phone'),'regex:/^\+[0-9]+$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'fcm_token' => ['nullable'],
             'status' => ['required', 'integer'],
             'type' => ['required', 'integer'],
         ];
@@ -57,7 +53,7 @@ class RegisterIndividualRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'type' => $this->account_type === 'individual' ? UserType::CLIENT->value : UserType::BUSINESS_OWNER->value,
+            'type' => UserType::BUSINESS_OWNER->value,
             'status' => $this->status ?? 1,
         ]);
     }

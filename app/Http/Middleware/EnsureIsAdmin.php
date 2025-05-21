@@ -13,7 +13,7 @@ class EnsureIsAdmin
     {
         if (
             Auth::check() &&
-            Auth::user()->type == UserType::ADMIN->value
+            (in_array(Auth::user()->type, [UserType::ADMIN->value, UserType::BUSINESS_OWNER->value]))
         ) {
             return $next($request);
         }
